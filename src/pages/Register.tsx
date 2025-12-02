@@ -1,27 +1,40 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, AlertCircle, CheckCircle2 } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
+import { toast } from 'sonner';
 import logoImage from 'figma:asset/8c308caf909810f493480578c4eab6aa4f6235bf.png';
 
 export function Register() {
   const navigate = useNavigate();
+  const { register } = useAuth();
+  
   const [formData, setFormData] = useState({
     fullName: '',
     companyName: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    confirmPassword: '',
+    phone: '' 
   });
+  
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [touched, setTouched] = useState<{ [key: string]: boolean }>({});
 
+  // 1. Centralized Rules for Consistency
+  const passwordRules = {
+    length: (pw: string) => pw.length >= 8,
+    number: (pw: string) => /\d/.test(pw),
+    uppercase: (pw: string) => /[A-Z]/.test(pw),
+  };
+
   const passwordRequirements = [
-    { label: 'At least 8 characters', test: (pw: string) => pw.length >= 8 },
-    { label: 'Contains a number', test: (pw: string) => /\d/.test(pw) },
-    { label: 'Contains uppercase', test: (pw: string) => /[A-Z]/.test(pw) },
+    { label: 'At least 8 characters', test: passwordRules.length },
+    { label: 'Contains a number', test: passwordRules.number },
+    { label: 'Contains uppercase', test: passwordRules.uppercase },
   ];
 
   const validateForm = () => {
@@ -37,10 +50,17 @@ export function Register() {
       newErrors.email = 'Please enter a valid email address';
     }
 
+    // 2. Updated Password Validation to enforce all rules
     if (!formData.password) {
       newErrors.password = 'Password is required';
-    } else if (formData.password.length < 8) {
-      newErrors.password = 'Password must be at least 8 characters';
+    } else {
+      if (!passwordRules.length(formData.password)) {
+        newErrors.password = 'Password must be at least 8 characters';
+      } else if (!passwordRules.number(formData.password)) {
+        newErrors.password = 'Password must contain at least one number';
+      } else if (!passwordRules.uppercase(formData.password)) {
+        newErrors.password = 'Password must contain at least one uppercase letter';
+      }
     }
 
     if (formData.password !== formData.confirmPassword) {
@@ -51,39 +71,56 @@ export function Register() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (!validateForm()) {
+      // If validation fails, mark all fields as touched to show errors
+      setTouched({
+        fullName: true,
+        email: true,
+        password: true,
+        confirmPassword: true,
+        companyName: true,
+        phone: true
+      });
+      toast.error("Please fix the errors in the form.");
       return;
     }
 
     setIsLoading(true);
     
-    // Simulate registration - in production this would call API
-    setTimeout(() => {
-      setIsLoading(false);
-      // Redirect to pending approval page
+    try {
+      await register(formData);
+      toast.success("Account created successfully! Please wait for admin approval.");
       navigate('/pending-approval');
-    }, 1500);
+    } catch (error: any) {
+      toast.error(error.message || "Failed to create account. Please try again.");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleChange = (field: string, value: string) => {
-    setFormData({ ...formData, [field]: value });
-    // Clear error when user starts typing
+    setFormData(prev => ({ ...prev, [field]: value }));
+    
+    // Clear specific field error when user types
     if (errors[field]) {
-      setErrors({ ...errors, [field]: '' });
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[field];
+        return newErrors;
+      });
     }
   };
 
   const handleBlur = (field: string) => {
-    setTouched({ ...touched, [field]: true });
+    setTouched(prev => ({ ...prev, [field]: true }));
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#F5F7FA] to-[#E2E8F0] flex flex-col items-center justify-center px-4 py-8 sm:px-6 lg:px-8">
       <div className="w-full max-w-2xl">
-        {/* Logo and Header */}
         <div className="mb-8 text-center">
           <button 
             onClick={() => navigate('/')}
@@ -96,7 +133,6 @@ export function Register() {
           <p className="text-[#4A5568] text-sm sm:text-base">Join BizSetup to streamline your business setup</p>
         </div>
 
-        {/* Registration Card */}
         <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 sm:p-8">
           <div className="mb-6">
             <h2 className="mb-1 text-[#1A202C]">Client Registration</h2>
@@ -106,9 +142,7 @@ export function Register() {
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-5">
-            {/* Name and Company - Side by side on desktop */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {/* Full Name Field */}
               <div>
                 <label htmlFor="fullName" className="block text-sm text-[#1A202C] mb-2">
                   Full Name <span className="text-[#E74C3C]">*</span>
@@ -134,7 +168,6 @@ export function Register() {
                 )}
               </div>
 
-              {/* Company Name Field */}
               <div>
                 <label htmlFor="companyName" className="block text-sm text-[#1A202C] mb-2">
                   Company Name <span className="text-[#718096] text-xs">(Optional)</span>
@@ -176,9 +209,23 @@ export function Register() {
               )}
             </div>
 
-            {/* Password Fields - Side by side on desktop */}
+            {/* Phone Field */}
+            <div>
+              <label htmlFor="phone" className="block text-sm text-[#1A202C] mb-2">
+                Phone Number <span className="text-[#718096] text-xs">(Optional)</span>
+              </label>
+              <input
+                id="phone"
+                type="text"
+                value={formData.phone}
+                onChange={(e) => handleChange('phone', e.target.value)}
+                placeholder="+971 50 000 0000"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-[#2EC4B6] focus:ring-2 focus:ring-[#2EC4B6]/20 transition-all text-[#1A202C] placeholder:text-gray-400"
+              />
+            </div>
+
+            {/* Password Fields */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {/* Password Field */}
               <div>
                 <label htmlFor="password" className="block text-sm text-[#1A202C] mb-2">
                   Password <span className="text-[#E74C3C]">*</span>
@@ -214,7 +261,6 @@ export function Register() {
                 )}
               </div>
 
-              {/* Confirm Password Field */}
               <div>
                 <label htmlFor="confirmPassword" className="block text-sm text-[#1A202C] mb-2">
                   Confirm Password <span className="text-[#E74C3C]">*</span>
@@ -251,20 +297,21 @@ export function Register() {
               </div>
             </div>
 
-            {/* Password Requirements */}
-            {formData.password && (
-              <div className="bg-gray-50 rounded-lg p-4 space-y-2">
-                <p className="text-xs text-[#4A5568] mb-2">Password requirements:</p>
+            {/* 3. Visual Password Strength Indicator */}
+            {/* Display requirements if user has started typing or touched the field */}
+            {(formData.password || touched.password) && (
+              <div className="bg-gray-50 rounded-lg p-4 space-y-2 border border-gray-100">
+                <p className="text-xs text-[#4A5568] mb-2 font-medium">Password requirements:</p>
                 {passwordRequirements.map((req, index) => {
                   const isPassed = req.test(formData.password);
                   return (
-                    <div key={index} className="flex items-center gap-2">
+                    <div key={index} className="flex items-center gap-2 transition-all duration-300">
                       {isPassed ? (
                         <CheckCircle2 size={14} className="text-[#2ECC71]" />
                       ) : (
                         <div className="w-3.5 h-3.5 border-2 border-gray-300 rounded-full" />
                       )}
-                      <span className={`text-xs ${isPassed ? 'text-[#2ECC71]' : 'text-[#718096]'}`}>
+                      <span className={`text-xs ${isPassed ? 'text-[#2ECC71] font-medium' : 'text-[#718096]'}`}>
                         {req.label}
                       </span>
                     </div>
@@ -273,7 +320,6 @@ export function Register() {
               </div>
             )}
 
-            {/* Info Box */}
             <div className="bg-gradient-to-r from-[#EBF8FF] to-[#E0F2FE] border border-[#BEE3F8] rounded-lg p-4">
               <div className="flex gap-3">
                 <div className="flex-shrink-0">
@@ -291,7 +337,6 @@ export function Register() {
               </div>
             </div>
 
-            {/* Sign Up Button */}
             <button
               type="submit"
               disabled={isLoading}
@@ -311,14 +356,12 @@ export function Register() {
             </button>
           </form>
 
-          {/* Divider */}
           <div className="my-6 flex items-center gap-4">
             <div className="flex-1 h-px bg-gray-200"></div>
             <span className="text-xs text-gray-500">Already registered?</span>
             <div className="flex-1 h-px bg-gray-200"></div>
           </div>
 
-          {/* Sign In Link */}
           <button
             onClick={() => navigate('/login')}
             className="w-full border-2 border-[#2EC4B6] text-[#2EC4B6] hover:bg-[#2EC4B6] hover:text-white py-3 rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98]"
@@ -327,7 +370,6 @@ export function Register() {
           </button>
         </div>
 
-        {/* Footer Note */}
         <p className="mt-6 text-xs text-[#718096] text-center">
           By creating an account, you agree to our{' '}
           <button 

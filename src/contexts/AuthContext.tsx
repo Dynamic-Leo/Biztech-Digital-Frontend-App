@@ -1,18 +1,12 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
-
-export type UserRole = 'client' | 'agent' | 'admin';
-
-interface User {
-  id: string;
-  email: string;
-  name: string;
-  role: UserRole;
-}
+import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
+import api from '../lib/api';
+import { RegisterData, User, UserRole } from '../types';
 
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
-  login: (email: string, password: string, role: UserRole) => Promise<void>;
+  login: (email: string, password: string) => Promise<void>;
+  register: (data: RegisterData) => Promise<void>;
   logout: () => void;
   updateUser: (user: Partial<User>) => void;
 }
@@ -33,26 +27,68 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
 
-  const login = async (email: string, password: string, role: UserRole) => {
-    // Simulate API call - replace with actual authentication logic
-    await new Promise((resolve) => setTimeout(resolve, 500));
-    
-    const mockUser: User = {
-      id: '1',
-      email,
-      name: email.split('@')[0],
-      role,
+  // Check for existing session on mount
+  useEffect(() => {
+    const checkAuth = async () => {
+      const token = localStorage.getItem('token');
+      const storedUser = localStorage.getItem('user');
+      
+      if (token && storedUser) {
+        setUser(JSON.parse(storedUser));
+      }
+      setLoading(false);
     };
-    
-    setUser(mockUser);
-    // Store in localStorage for persistence
-    localStorage.setItem('user', JSON.stringify(mockUser));
+    checkAuth();
+  }, []);
+
+  const login = async (email: string, password: string) => {
+    try {
+      const response = await api.post('/auth/login', { email, password });
+      
+      const { token, user: apiUser } = response.data;
+      
+      // Normalize Backend Data
+      const userData: User = {
+        id: apiUser.id,
+        email: apiUser.email || email,
+        name: apiUser.fullName || apiUser.name, // Backend uses fullName
+        role: (apiUser.role || 'client').toLowerCase() as UserRole, // Normalize "Client" -> "client"
+        company: apiUser.companyName
+      };
+
+      localStorage.setItem('token', token);
+      localStorage.setItem('user', JSON.stringify(userData));
+      setUser(userData);
+    } catch (error: any) {
+      console.error("Login Failed", error);
+      // Re-throw the specific error message from backend (e.g., "Account is Pending Approval")
+      throw new Error(error.response?.data?.message || 'Login failed');
+    }
+  };
+
+  const register = async (data: RegisterData) => {
+    try {
+      await api.post('/auth/register', {
+        fullName: data.fullName,
+        email: data.email,
+        password: data.password,
+        mobile: data.phone,
+        companyName: data.companyName,
+        role: 'Client'
+      });
+    } catch (error: any) {
+      console.error("Registration Failed", error);
+      throw new Error(error.response?.data?.message || 'Registration failed');
+    }
   };
 
   const logout = () => {
-    setUser(null);
+    localStorage.removeItem('token');
     localStorage.removeItem('user');
+    setUser(null);
+    window.location.href = '/login';
   };
 
   const updateUser = (updates: Partial<User>) => {
@@ -63,21 +99,14 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     }
   };
 
-  // Initialize from localStorage on mount
-  React.useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
-    }
-  }, []);
-
   const value: AuthContextType = {
     user,
     isAuthenticated: !!user,
     login,
+    register,
     logout,
     updateUser,
   };
 
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
 };

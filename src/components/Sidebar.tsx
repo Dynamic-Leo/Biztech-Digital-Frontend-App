@@ -1,5 +1,6 @@
 import React from 'react';
 import { LayoutDashboard, Users, User, LogOut, Settings, FileText, Briefcase, Menu, X } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext'; // Import Auth Context
 
 interface SidebarProps {
   role: 'client' | 'agent' | 'admin';
@@ -10,6 +11,7 @@ interface SidebarProps {
 
 export function Sidebar({ role, activePage, onNavigate, userName = 'User' }: SidebarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
+  const { logout } = useAuth(); // Get logout function
   
   const agentMenuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, path: '/agent/dashboard' },
@@ -30,6 +32,11 @@ export function Sidebar({ role, activePage, onNavigate, userName = 'User' }: Sid
 
   const handleNavigation = (path: string) => {
     onNavigate(path);
+    setMobileMenuOpen(false);
+  };
+
+  const handleLogout = () => {
+    logout();
     setMobileMenuOpen(false);
   };
 
@@ -115,14 +122,17 @@ export function Sidebar({ role, activePage, onNavigate, userName = 'User' }: Sid
         <div className="p-4 border-t border-white/10">
           <div className="flex items-center gap-3 px-4 py-3 mb-2">
             <div className="w-10 h-10 bg-[#2EC4B6] rounded-full flex items-center justify-center">
-              <span className="text-white text-sm">{userName.charAt(0)}</span>
+              <span className="text-white text-sm">{userName.charAt(0).toUpperCase()}</span>
             </div>
             <div>
-              <p className="text-white text-sm">{userName}</p>
+              <p className="text-white text-sm truncate max-w-[140px]">{userName}</p>
               <p className="text-gray-400 text-xs capitalize">{role}</p>
             </div>
           </div>
-          <button className="w-full flex items-center gap-3 px-4 py-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
+          <button 
+            onClick={handleLogout}
+            className="w-full flex items-center gap-3 px-4 py-2 text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+          >
             <LogOut size={18} />
             <span className="text-sm">Sign Out</span>
           </button>

@@ -18,6 +18,15 @@ export interface User {
   company?: string;
 }
 
+// Added RegisterData interface
+export interface RegisterData {
+  fullName: string;
+  email: string;
+  password: string;
+  companyName?: string;
+  phone?: string;
+}
+
 export interface AuthState {
   user: User | null;
   isAuthenticated: boolean;
@@ -83,16 +92,16 @@ export interface Project {
   agent?: string;
   agentId?: string;
   category: string;
-  status: ProjectStatus;
+  status: string;
   progress: number;
   startDate?: string;
   deadline?: string;
-  ecd?: string; // Estimated Completion Date
-  budget?: number;
+  ecd?: string;
+  budget?: string | number;
   spent?: number;
   description?: string;
-  milestones?: Milestone[];
-  deliverables?: Deliverable[];
+  milestones?: any[];
+  deliverables?: any[];
 }
 
 export interface Milestone {
@@ -145,8 +154,8 @@ export interface ServiceRequest {
   title?: string;
   description?: string;
   details: string;
-  status: RequestStatus;
-  priority?: RequestPriority;
+  status: string;
+  priority?: string;
   budget?: string;
   timeline?: string;
   dateSubmitted: string;
@@ -154,7 +163,7 @@ export interface ServiceRequest {
   updatedAt?: string;
   proposalAmount?: string;
   proposalSent?: boolean;
-  attachments?: Attachment[];
+  attachments?: any[];
 }
 
 export interface Attachment {
@@ -179,7 +188,7 @@ export interface Proposal {
   title: string;
   description: string;
   scope: string[];
-  deliverables: ProposalDeliverable[];
+  deliverables: any[];
   timeline: string;
   budget: number;
   terms?: string;
@@ -208,7 +217,7 @@ export type DocumentStatus = 'active' | 'archived' | 'expired';
 export interface Document {
   id: string;
   name: string;
-  type: DocumentType;
+  type: string;
   category?: string;
   description?: string;
   url?: string;
@@ -217,7 +226,7 @@ export interface Document {
   uploadedBy: string;
   lastAccessed?: string;
   expiryDate?: string;
-  status: DocumentStatus;
+  status: string;
   isEncrypted?: boolean;
   sharedWith?: string[];
 }
@@ -401,13 +410,16 @@ export interface RegisterFormData {
 }
 
 export interface ProfileFormData {
-  name: string;
+  fullName: string;
   email: string;
   phone?: string;
-  company?: string;
+  companyName?: string;
   industry?: string;
-  bio?: string;
-  avatar?: string;
+  companySize?: string;
+  address?: string;
+  currentPassword?: string;
+  newPassword?: string;
+  confirmPassword?: string;
 }
 
 // ============================================================================

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
-import { useAuth, UserRole } from '../contexts/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'sonner';
 import logoImage from 'figma:asset/8c308caf909810f493480578c4eab6aa4f6235bf.png';
 
@@ -43,25 +43,37 @@ export function Login() {
     setIsLoading(true);
     
     try {
-      // Simple role detection based on email domain - replace with actual auth logic
-      let role: UserRole = 'client';
-      if (email.includes('agent')) role = 'agent';
-      if (email.includes('admin')) role = 'admin';
-      
-      await login(email, password, role);
+      // 1. Attempt login via API
+      await login(email, password);
       
       toast.success('Login successful!');
       
-      // Navigate based on role
-      const destination = 
-        role === 'admin' ? '/admin/dashboard' :
-        role === 'agent' ? '/agent/dashboard' :
-        '/client-dashboard';
+      // 2. Retrieve user data to determine redirect path
+      // We grab it from localStorage because state updates are async
+      const storedUser = localStorage.getItem('user');
+      const userData = storedUser ? JSON.parse(storedUser) : null;
+      const role = userData?.role || 'client';
+
+      // 3. Determine destination
+      let destination = '/client-dashboard';
+      if (role === 'admin') destination = '/admin/dashboard';
+      else if (role === 'agent') destination = '/agent/dashboard';
       
+      // 4. Handle "Redirect Back" logic or go to dashboard
       const from = location.state?.from?.pathname || destination;
       navigate(from);
-    } catch (error) {
-      toast.error('Invalid email or password');
+
+    } catch (error: any) {
+      // Handle specific backend errors
+      const errorMessage = error.message || 'Invalid email or password';
+      
+      if (errorMessage.includes('Pending Approval')) {
+        toast.warning('Account Under Review', {
+          description: 'Your account is currently pending administrator approval.'
+        });
+      } else {
+        toast.error(errorMessage);
+      }
     } finally {
       setIsLoading(false);
     }
