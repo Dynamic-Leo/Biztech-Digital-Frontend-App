@@ -1,6 +1,5 @@
 /**
  * BizTech Biz Digital - Centralized Type Definitions
- * All TypeScript interfaces and types for the application
  */
 
 // ============================================================================
@@ -18,7 +17,11 @@ export interface User {
   company?: string;
 }
 
-// Added RegisterData interface
+export interface AuthState {
+  user: User | null;
+  isAuthenticated: boolean;
+}
+
 export interface RegisterData {
   fullName: string;
   email: string;
@@ -27,9 +30,60 @@ export interface RegisterData {
   phone?: string;
 }
 
-export interface AuthState {
-  user: User | null;
-  isAuthenticated: boolean;
+export interface LoginFormData {
+  email: string;
+  password: string;
+}
+
+// ============================================================================
+// REQUEST TYPES
+// ============================================================================
+
+export type RequestStatus = 
+  | 'new'
+  | 'pending-review' 
+  | 'awaiting-quote' 
+  | 'action-required'
+  | 'proposal-sent'
+  | 'accepted'
+  | 'rejected'
+  | 'in-progress'
+  | 'completed';
+
+export type RequestPriority = 'low' | 'medium' | 'high' | 'urgent';
+
+export interface ServiceRequest {
+  id: string;
+  client: string;
+  clientId?: string;
+  clientEmail: string;
+  agent?: string;
+  agentId?: string;
+  category: string;
+  subcategory?: string;
+  title?: string;
+  description?: string;
+  details: string;
+  status: string;
+  priority?: string;
+  budget?: string;
+  timeline?: string;
+  dateSubmitted: string;
+  createdAt: string;
+  updatedAt?: string;
+  proposalAmount?: string;
+  proposalSent?: boolean;
+  attachments?: any[];
+}
+
+export interface Attachment {
+  id: string;
+  name: string;
+  type: string;
+  size: number;
+  url: string;
+  uploadedDate: string;
+  uploadedBy: string;
 }
 
 // ============================================================================
@@ -97,6 +151,7 @@ export interface Project {
   startDate?: string;
   deadline?: string;
   ecd?: string;
+  estimatedCompletion?: string; // Added to fix error
   budget?: string | number;
   spent?: number;
   description?: string;
@@ -123,57 +178,6 @@ export interface Deliverable {
   url?: string;
   uploadedDate?: string;
   approvedDate?: string;
-}
-
-// ============================================================================
-// REQUEST TYPES
-// ============================================================================
-
-export type RequestStatus = 
-  | 'new'
-  | 'pending-review' 
-  | 'awaiting-quote' 
-  | 'action-required'
-  | 'proposal-sent'
-  | 'accepted'
-  | 'rejected'
-  | 'in-progress'
-  | 'completed';
-
-export type RequestPriority = 'low' | 'medium' | 'high' | 'urgent';
-
-export interface ServiceRequest {
-  id: string;
-  client: string;
-  clientId?: string;
-  clientEmail: string;
-  agent?: string;
-  agentId?: string;
-  category: string;
-  subcategory?: string;
-  title?: string;
-  description?: string;
-  details: string;
-  status: string;
-  priority?: string;
-  budget?: string;
-  timeline?: string;
-  dateSubmitted: string;
-  createdAt: string;
-  updatedAt?: string;
-  proposalAmount?: string;
-  proposalSent?: boolean;
-  attachments?: any[];
-}
-
-export interface Attachment {
-  id: string;
-  name: string;
-  type: string;
-  size: number;
-  url: string;
-  uploadedDate: string;
-  uploadedBy: string;
 }
 
 // ============================================================================
@@ -250,34 +254,23 @@ export interface VaultCredential {
 // ============================================================================
 
 export interface NeedsAssessmentData {
-  // Step 1: Service Type
   serviceType: string;
   subcategory?: string;
-  
-  // Step 2: Project Details
   projectTitle?: string;
   projectDescription: string;
   goals: string[];
   targetAudience?: string;
-  
-  // Step 3: Technical Requirements
   technicalRequirements?: string[];
   platforms?: string[];
   integrations?: string[];
-  
-  // Step 4: Timeline & Budget
   timeline: string;
   budget: string;
   flexibleTimeline?: boolean;
   flexibleBudget?: boolean;
-  
-  // Step 5: Additional Info
   hasExistingAssets?: boolean;
   existingAssets?: string;
   competitorReferences?: string;
   additionalNotes?: string;
-  
-  // Attachments
   attachments?: File[];
 }
 
@@ -350,29 +343,20 @@ export interface Approval {
 // ============================================================================
 
 export interface PlatformSettings {
-  // General Settings
   platformName: string;
   platformEmail: string;
   platformPhone?: string;
   supportEmail: string;
-  
-  // Feature Flags
   allowClientRegistration: boolean;
   requireAdminApproval: boolean;
   enableNotifications: boolean;
   enableTwoFactor: boolean;
-  
-  // Business Settings
   defaultCommissionRate?: number;
   currency: string;
   timezone: string;
-  
-  // Email Settings
   smtpHost?: string;
   smtpPort?: number;
   smtpUser?: string;
-  
-  // Security Settings
   sessionTimeout: number;
   maxLoginAttempts: number;
   passwordMinLength: number;
@@ -488,40 +472,22 @@ export interface PaginationConfig {
   filters?: FilterConfig[];
 }
 
-// ============================================================================
-// COMPONENT PROP TYPES (For components that need specific props)
-// ============================================================================
-
 export interface StatusBadgeProps {
   status: string;
   variant?: 'default' | 'outlined';
 }
 
 export interface ProgressCircleProps {
-  progress: number;
+  progress?: number;
+  percentage?: number;
   size?: number;
   strokeWidth?: number;
   showLabel?: boolean;
 }
 
 export interface SidebarProps {
-  userRole?: UserRole;
-  currentPath?: string;
+  role: 'client' | 'agent' | 'admin';
+  activePage: string;
+  onNavigate: (page: string) => void;
+  userName?: string;
 }
-
-// ============================================================================
-// EXPORT ALL
-// ============================================================================
-
-// Re-export commonly used types for convenience
-export type {
-  UserRole,
-  User,
-  Client,
-  Agent,
-  Project,
-  ServiceRequest,
-  Proposal,
-  Document,
-  Notification,
-};

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Sidebar } from '../components/Sidebar';
-import { Plus, Edit2, Trash2, Mail, Briefcase, Phone } from 'lucide-react';
+import { Plus, Mail, Phone } from 'lucide-react';
 import { Agent } from '../types';
 import { toast } from 'sonner';
 import api from '../lib/api';
@@ -26,7 +25,6 @@ export function AdminAgents() {
   const fetchAgents = async () => {
     try {
       const res = await api.get('/admin/agents');
-      // Map backend user to Agent type structure if needed
       const mappedAgents = res.data.map((u: any) => ({
         id: u.id,
         name: u.fullName,
@@ -60,70 +58,64 @@ export function AdminAgents() {
       toast.success(`Agent ${newAgent.fullName} created successfully!`);
       setShowAddAgent(false);
       setNewAgent({ fullName: '', email: '', phone: '', password: '' });
-      fetchAgents(); // Refresh list
+      fetchAgents();
     } catch (error: any) {
       toast.error(error.response?.data?.message || "Failed to create agent");
     }
   };
 
   return (
-    <div className="flex min-h-screen bg-[#F5F7FA] overflow-x-hidden">
-      <Sidebar role="admin" activePage="/admin/agents" onNavigate={navigate} userName="Admin" />
+    <>
+      <div className="flex justify-between items-start mb-8">
+        <div>
+          <h1 className="mb-2 text-[#0D1B2A]">Agent Management</h1>
+          <p className="text-[#4A5568]">Create and manage agent accounts</p>
+        </div>
+        <button
+          onClick={() => setShowAddAgent(true)}
+          className="flex items-center gap-2 bg-[#2EC4B6] text-white px-6 py-2.5 rounded-lg hover:bg-[#26a599] transition-all font-medium"
+        >
+          <Plus size={20} /> Add New Agent
+        </button>
+      </div>
 
-      <div className="lg:ml-64 flex-1 pt-16 lg:pt-0 w-full min-w-0">
-        <div className="p-4 sm:p-6 lg:p-8 max-w-full overflow-x-hidden">
-          <div className="flex justify-between items-start mb-8">
-            <div>
-              <h1 className="mb-2 text-[#0D1B2A]">Agent Management</h1>
-              <p className="text-[#4A5568]">Create and manage agent accounts</p>
-            </div>
-            <button
-              onClick={() => setShowAddAgent(true)}
-              className="flex items-center gap-2 bg-[#2EC4B6] text-white px-6 py-2.5 rounded-lg hover:bg-[#26a599] transition-all font-medium"
-            >
-              <Plus size={20} /> Add New Agent
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
-            {loading ? (
-              <p>Loading agents...</p>
-            ) : agents.length === 0 ? (
-              <p>No agents found.</p>
-            ) : (
-              agents.map((agent) => (
-                <div key={agent.id} className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow">
-                  <div className="flex justify-between items-start mb-4">
-                    <div className="flex items-start gap-3">
-                      <div className="w-12 h-12 bg-gradient-to-br from-[#2EC4B6] to-[#26a599] rounded-full flex items-center justify-center text-white font-semibold">
-                        {agent.name.charAt(0)}
-                      </div>
-                      <div>
-                        <h3 className="font-semibold text-[#0D1B2A]">{agent.name}</h3>
-                        <span className={`px-2 py-0.5 rounded text-xs ${
-                          agent.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'
-                        }`}>
-                          {agent.status}
-                        </span>
-                      </div>
-                    </div>
+      <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+        {loading ? (
+          <p className="col-span-full text-center py-8 text-[#4A5568]">Loading agents...</p>
+        ) : agents.length === 0 ? (
+          <p className="col-span-full text-center py-8 text-[#4A5568]">No agents found.</p>
+        ) : (
+          agents.map((agent) => (
+            <div key={agent.id} className="bg-white rounded-xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow">
+              <div className="flex justify-between items-start mb-4">
+                <div className="flex items-start gap-3">
+                  <div className="w-12 h-12 bg-gradient-to-br from-[#2EC4B6] to-[#26a599] rounded-full flex items-center justify-center text-white font-semibold">
+                    {agent.name.charAt(0)}
                   </div>
-
-                  <div className="space-y-2 mb-4">
-                    <div className="flex items-center gap-2 text-sm text-[#4A5568]">
-                      <Mail size={14} /> <span className="truncate">{agent.email}</span>
-                    </div>
-                    {agent.phone && (
-                      <div className="flex items-center gap-2 text-sm text-[#4A5568]">
-                        <Phone size={14} /> <span>{agent.phone}</span>
-                      </div>
-                    )}
+                  <div>
+                    <h3 className="font-semibold text-[#0D1B2A]">{agent.name}</h3>
+                    <span className={`px-2 py-0.5 rounded text-xs ${
+                      agent.status === 'active' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700'
+                    }`}>
+                      {agent.status}
+                    </span>
                   </div>
                 </div>
-              ))
-            )}
-          </div>
-        </div>
+              </div>
+
+              <div className="space-y-2 mb-4">
+                <div className="flex items-center gap-2 text-sm text-[#4A5568]">
+                  <Mail size={14} /> <span className="truncate">{agent.email}</span>
+                </div>
+                {agent.phone && (
+                  <div className="flex items-center gap-2 text-sm text-[#4A5568]">
+                    <Phone size={14} /> <span>{agent.phone}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))
+        )}
       </div>
 
       {/* Add Agent Modal */}
@@ -180,6 +172,6 @@ export function AdminAgents() {
           </div>
         </div>
       )}
-    </div>
+    </>
   );
 }

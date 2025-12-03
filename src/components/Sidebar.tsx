@@ -1,6 +1,6 @@
 import React from 'react';
-import { LayoutDashboard, Users, User, LogOut, Settings, FileText, Briefcase, Menu, X } from 'lucide-react';
-import { useAuth } from '../contexts/AuthContext'; // Import Auth Context
+import { LayoutDashboard, Users, User, LogOut, Settings, FileText, Briefcase, Menu, X, Layers } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
 
 interface SidebarProps {
   role: 'client' | 'agent' | 'admin';
@@ -11,7 +11,7 @@ interface SidebarProps {
 
 export function Sidebar({ role, activePage, onNavigate, userName = 'User' }: SidebarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
-  const { logout } = useAuth(); // Get logout function
+  const { logout } = useAuth();
   
   const agentMenuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, path: '/agent/dashboard' },
@@ -23,6 +23,7 @@ export function Sidebar({ role, activePage, onNavigate, userName = 'User' }: Sid
   const adminMenuItems = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard, path: '/admin/dashboard' },
     { id: 'approvals', label: 'User Approvals', icon: Users, path: '/admin/approvals' },
+    { id: 'services', label: 'Services', icon: Layers, path: '/admin/services' }, // Added Services
     { id: 'agents', label: 'Agents', icon: Briefcase, path: '/admin/agents' },
     { id: 'requests', label: 'Requests', icon: FileText, path: '/admin/requests' },
     { id: 'settings', label: 'Settings', icon: Settings, path: '/admin/settings' },
@@ -42,18 +43,15 @@ export function Sidebar({ role, activePage, onNavigate, userName = 'User' }: Sid
 
   return (
     <>
-      {/* Mobile Header - Only visible on mobile */}
+      {/* Mobile Header */}
       <div className="lg:hidden fixed top-0 left-0 right-0 bg-[#0D1B2A] border-b border-white/10 z-50">
         <div className="flex items-center justify-between p-4">
-          {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="w-9 h-9 bg-[#2EC4B6] rounded-lg flex items-center justify-center shadow-lg">
               <span className="text-white font-bold">BT</span>
             </div>
             <span className="text-white text-lg font-semibold">BizSetup</span>
           </div>
-
-          {/* Mobile Menu Button */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="text-white p-2 hover:bg-white/10 rounded-lg transition-colors"
@@ -71,7 +69,7 @@ export function Sidebar({ role, activePage, onNavigate, userName = 'User' }: Sid
         />
       )}
 
-      {/* Sidebar - Desktop always visible, Mobile slide-out */}
+      {/* Sidebar */}
       <div
         className={`
           fixed top-0 left-0 h-screen bg-[#0D1B2A] text-white flex flex-col z-50
@@ -82,7 +80,6 @@ export function Sidebar({ role, activePage, onNavigate, userName = 'User' }: Sid
           lg:mt-0 mt-[64px]
         `}
       >
-        {/* Logo - Desktop only */}
         <div className="hidden lg:block p-6 border-b border-white/10">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 bg-[#2EC4B6] rounded-lg flex items-center justify-center shadow-lg">
@@ -92,7 +89,6 @@ export function Sidebar({ role, activePage, onNavigate, userName = 'User' }: Sid
           </div>
         </div>
 
-        {/* Navigation */}
         <nav className="flex-1 px-4 py-6 overflow-y-auto">
           <ul className="space-y-2">
             {menuItems.map((item) => {
@@ -118,7 +114,6 @@ export function Sidebar({ role, activePage, onNavigate, userName = 'User' }: Sid
           </ul>
         </nav>
 
-        {/* User Profile */}
         <div className="p-4 border-t border-white/10">
           <div className="flex items-center gap-3 px-4 py-3 mb-2">
             <div className="w-10 h-10 bg-[#2EC4B6] rounded-full flex items-center justify-center">

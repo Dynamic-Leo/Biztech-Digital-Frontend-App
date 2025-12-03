@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { AuthProvider } from './contexts/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import { ClientLayout, SidebarLayout } from './layout/Layouts';
 
 // Public Pages
 import { Home } from './pages/Home';
@@ -33,6 +34,7 @@ import { AdminApprovals } from './pages/AdminApprovals';
 import { AdminAgents } from './pages/AdminAgents';
 import { AdminRequests } from './pages/AdminRequests';
 import { AdminSettings } from './pages/AdminSettings';
+import { AdminServices } from './pages/AdminServices';
 
 export default function App() {
   return (
@@ -42,156 +44,56 @@ export default function App() {
           <Toaster position="top-right" richColors />
           
           <Routes>
-            {/* Public Routes */}
+            {/* --- Public Routes (No Layout or specific internal layout) --- */}
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/pending-approval" element={<PendingApproval />} />
 
-            {/* Client Routes - Protected */}
-            <Route 
-              path="/client-dashboard" 
-              element={
-                <ProtectedRoute allowedRoles={['client']}>
-                  <ClientDashboard />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/my-documents" 
-              element={
-                <ProtectedRoute allowedRoles={['client']}>
-                  <MyDocuments />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/my-profile" 
-              element={
-                <ProtectedRoute allowedRoles={['client']}>
-                  <MyProfile />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/my-projects" 
-              element={
-                <ProtectedRoute allowedRoles={['client']}>
-                  <MyProjects />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/needs-assessment" 
-              element={
-                <ProtectedRoute allowedRoles={['client']}>
-                  <NeedsAssessment />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/project/:id" 
-              element={
-                <ProtectedRoute allowedRoles={['client']}>
-                  <ProjectCommandCenter />
-                </ProtectedRoute>
-              } 
-            />
+            {/* --- Client Routes (Uses ClientLayout with Header) --- */}
+            <Route element={
+              <ProtectedRoute allowedRoles={['client']}>
+                <ClientLayout />
+              </ProtectedRoute>
+            }>
+              <Route path="/client-dashboard" element={<ClientDashboard />} />
+              <Route path="/my-documents" element={<MyDocuments />} />
+              <Route path="/my-profile" element={<MyProfile />} />
+              <Route path="/my-projects" element={<MyProjects />} />
+              <Route path="/needs-assessment" element={<NeedsAssessment />} />
+              <Route path="/project/:id" element={<ProjectCommandCenter />} />
+            </Route>
 
-            {/* Agent Routes - Protected */}
-            <Route 
-              path="/agent/dashboard" 
-              element={
-                <ProtectedRoute allowedRoles={['agent']}>
-                  <AgentDashboard />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/agent/clients" 
-              element={
-                <ProtectedRoute allowedRoles={['agent']}>
-                  <AgentClients />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/agent/projects" 
-              element={
-                <ProtectedRoute allowedRoles={['agent']}>
-                  <AgentProjects />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/agent/profile" 
-              element={
-                <ProtectedRoute allowedRoles={['agent']}>
-                  <AgentProfile />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/agent/proposal-builder" 
-              element={
-                <ProtectedRoute allowedRoles={['agent']}>
-                  <ProposalBuilder />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/agent/project-management/:id" 
-              element={
-                <ProtectedRoute allowedRoles={['agent']}>
-                  <AgentProjectManagement />
-                </ProtectedRoute>
-              } 
-            />
+            {/* --- Agent Routes (Uses SidebarLayout) --- */}
+            <Route element={
+              <ProtectedRoute allowedRoles={['agent']}>
+                <SidebarLayout role="agent" />
+              </ProtectedRoute>
+            }>
+              <Route path="/agent/dashboard" element={<AgentDashboard />} />
+              <Route path="/agent/clients" element={<AgentClients />} />
+              <Route path="/agent/projects" element={<AgentProjects />} />
+              <Route path="/agent/profile" element={<AgentProfile />} />
+              <Route path="/agent/proposal-builder" element={<ProposalBuilder />} />
+              <Route path="/agent/project-management/:id" element={<AgentProjectManagement />} />
+            </Route>
 
-            {/* Admin Routes - Protected */}
-            <Route 
-              path="/admin/dashboard" 
-              element={
-                <ProtectedRoute allowedRoles={['admin']}>
-                  <AdminDashboard />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/admin/approvals" 
-              element={
-                <ProtectedRoute allowedRoles={['admin']}>
-                  <AdminApprovals />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/admin/agents" 
-              element={
-                <ProtectedRoute allowedRoles={['admin']}>
-                  <AdminAgents />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/admin/requests" 
-              element={
-                <ProtectedRoute allowedRoles={['admin']}>
-                  <AdminRequests />
-                </ProtectedRoute>
-              } 
-            />
-            <Route 
-              path="/admin/settings" 
-              element={
-                <ProtectedRoute allowedRoles={['admin']}>
-                  <AdminSettings />
-                </ProtectedRoute>
-              } 
-            />
+            {/* --- Admin Routes (Uses SidebarLayout) --- */}
+            <Route element={
+              <ProtectedRoute allowedRoles={['admin']}>
+                <SidebarLayout role="admin" />
+              </ProtectedRoute>
+            }>
+              <Route path="/admin/dashboard" element={<AdminDashboard />} />
+              <Route path="/admin/approvals" element={<AdminApprovals />} />
+              <Route path="/admin/agents" element={<AdminAgents />} />
+              <Route path="/admin/services" element={<AdminServices />} />
+              <Route path="/admin/requests" element={<AdminRequests />} />
+              <Route path="/admin/settings" element={<AdminSettings />} />
+            </Route>
 
-            {/* Catch all - redirect to home */}
+            {/* Catch all */}
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </div>

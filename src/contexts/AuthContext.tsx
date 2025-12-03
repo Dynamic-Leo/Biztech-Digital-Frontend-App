@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode, useEffect } from 'react';
-import api from '../lib/api';
-import { RegisterData, User, UserRole } from '../types';
+import { api } from '../services/api'; // Using the api service created above
+import { User, UserRole, RegisterData } from '../types';
 
 interface AuthContextType {
   user: User | null;
@@ -9,6 +9,7 @@ interface AuthContextType {
   register: (data: RegisterData) => Promise<void>;
   logout: () => void;
   updateUser: (user: Partial<User>) => void;
+  isLoading: boolean;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -27,7 +28,7 @@ interface AuthProviderProps {
 
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   // Check for existing session on mount
   useEffect(() => {
@@ -36,9 +37,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       const storedUser = localStorage.getItem('user');
       
       if (token && storedUser) {
-        setUser(JSON.parse(storedUser));
+        try {
+          setUser(JSON.parse(storedUser));
+        } catch (e) {
+          console.error("Failed to parse stored user data");
+          localStorage.removeItem('user');
+          localStorage.removeItem('token');
+        }
       }
-      setLoading(false);
+      setIsLoading(false);
     };
     checkAuth();
   }, []);
@@ -47,15 +54,15 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     try {
       const response = await api.post('/auth/login', { email, password });
       
-      const { token, user: apiUser } = response.data;
+      const { token, user: apiUser } = response;
       
-      // Normalize Backend Data
+      // Normalize Backend Data to match frontend User Interface
       const userData: User = {
         id: apiUser.id,
         email: apiUser.email || email,
-        name: apiUser.fullName || apiUser.name, // Backend uses fullName
+        name: apiUser.fullName || apiUser.name, // Handle backend variation
         role: (apiUser.role || 'client').toLowerCase() as UserRole, // Normalize "Client" -> "client"
-        company: apiUser.companyName
+        company: apiUser.companyName || apiUser.company
       };
 
       localStorage.setItem('token', token);
@@ -63,8 +70,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setUser(userData);
     } catch (error: any) {
       console.error("Login Failed", error);
-      // Re-throw the specific error message from backend (e.g., "Account is Pending Approval")
-      throw new Error(error.response?.data?.message || 'Login failed');
+      throw error; // Let the UI handle the specific error message
     }
   };
 
@@ -76,11 +82,11 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         password: data.password,
         mobile: data.phone,
         companyName: data.companyName,
-        role: 'Client'
+        role: 'Client' // Default role for public registration
       });
     } catch (error: any) {
       console.error("Registration Failed", error);
-      throw new Error(error.response?.data?.message || 'Registration failed');
+      throw error;
     }
   };
 
@@ -106,7 +112,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     register,
     logout,
     updateUser,
+    isLoading
   };
 
-  return <AuthContext.Provider value={value}>{!loading && children}</AuthContext.Provider>;
+  return <AuthContext.Provider value={value}>{!isLoading && children}</AuthContext.Provider>;
 };
