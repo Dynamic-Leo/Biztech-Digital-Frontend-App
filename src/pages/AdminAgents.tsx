@@ -1,12 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { Plus, Mail, Phone, Power, Trash2 } from 'lucide-react';
-import { Agent } from '../types';
 import { toast } from 'sonner';
 import api from '../lib/api';
 
 export function AdminAgents() {
-  const navigate = useNavigate();
   const [agents, setAgents] = useState<any[]>([]);
   const [showAddAgent, setShowAddAgent] = useState(false);
   const [loading, setLoading] = useState(true);

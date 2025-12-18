@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { AuthProvider } from './contexts/AuthContext';
@@ -14,7 +14,6 @@ import { PendingApproval } from './pages/PendingApproval';
 
 // Client Pages
 import { ClientDashboard } from './pages/ClientDashboard';
-import { MyDocuments } from './pages/MyDocuments';
 import { MyProfile } from './pages/MyProfile';
 import { MyProjects } from './pages/MyProjects';
 import { NeedsAssessment } from './pages/NeedsAssessment';

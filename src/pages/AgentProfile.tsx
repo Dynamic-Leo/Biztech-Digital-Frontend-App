@@ -1,13 +1,11 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Edit2, Mail, Phone, Award, Briefcase, Save, Loader2, Shield } from 'lucide-react';
+import { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
+import { Edit2, Mail, Phone, Award, Save, Loader2, Shield } from 'lucide-react';
 import api from '../lib/api';
 import { toast } from 'sonner';
 
 export function AgentProfile() {
-  const navigate = useNavigate();
-  const { user, updateUser } = useAuth();
+  const { updateUser } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
   
@@ -87,7 +85,7 @@ export function AgentProfile() {
         payload.password = formData.newPassword;
       }
 
-      const res = await api.put('/auth/me', payload);
+      await api.put('/auth/me', payload);
       
       // Update Context
       updateUser({ name: formData.fullName });

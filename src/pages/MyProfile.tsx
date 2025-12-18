@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Edit2, Save, X as Mail, Building, User as UserIcon, Shield, Loader2, Phone, LogOut } from 'lucide-react';
+import { Edit2, Save, X as Mail, Building, User as UserIcon, Shield, Loader2 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { ProfileFormData } from '../types';
 import api from '../lib/api';

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Send, Loader2, MessageSquare } from 'lucide-react';
 import api from '../lib/api';
 import { toast } from 'sonner';

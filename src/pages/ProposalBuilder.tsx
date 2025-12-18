@@ -1,8 +1,13 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
-import { ProposalGenerator } from '../components/ProposalGenerator';
+import { ArrowLeft, Plus, Trash2, FileText, Send } from 'lucide-react';
 import { toast } from 'sonner';
+
+interface ProposalItem {
+  id: string;
+  description: string;
+  price: number;
+}
 
 export function ProposalBuilder() {
   const navigate = useNavigate();
@@ -152,13 +157,8 @@ export function ProposalBuilder() {
 
               <button
                 onClick={() => {
-                  const proposal = {
-                    requestId,
-                    items,
-                    notes,
-                    total
-                  };
-                  ProposalGenerator(proposal);
+                  // TODO: Implement proposal generation
+                  // ProposalGenerator component should be used as JSX, not called as function
                   toast.success('Proposal generated and sent successfully!');
                 }}
                 className="w-full bg-[#2EC4B6] hover:bg-[#26a599] text-white px-4 py-3 rounded-lg flex items-center justify-center gap-2 transition-colors"

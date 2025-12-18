@@ -2,6 +2,8 @@ import React, { createContext, useContext, useState, ReactNode, useEffect } from
 import { api } from '../services/api'; // Using the api service created above
 import { User, UserRole, RegisterData } from '../types';
 
+export type { UserRole };
+
 interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;

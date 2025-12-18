@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { Plus, Layers, Loader2, Edit2, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 import api from '../lib/api';
@@ -12,7 +11,6 @@ interface Category {
 }
 
 export function AdminServices() {
-  const navigate = useNavigate();
   const [categories, setCategories] = useState<Category[]>([]);
   const [loading, setLoading] = useState(true);
   const [showModal, setShowModal] = useState(false);

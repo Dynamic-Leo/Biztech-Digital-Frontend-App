@@ -1,8 +1,8 @@
-import React from 'react';
+
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, CheckCircle, Shield, Zap, Users, FileText, BarChart, Lock, Phone, Mail } from 'lucide-react';
-import { Footer } from '../components/Footer';
+import { ArrowRight, Shield, Zap, Users, FileText, BarChart, Lock } from 'lucide-react';
 import logoImage from 'figma:asset/8c308caf909810f493480578c4eab6aa4f6235bf.png';
+import { Footer } from '../components/Footer';
 
 export function Home() {
   const navigate = useNavigate();
@@ -286,109 +286,10 @@ export function Home() {
             </button>
           </div>
         </div>
-
-        {/* Footer Links Section */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-white/10 pt-12">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 mb-12">
-            {/* Logo Section */}
-            <div className="col-span-1 sm:col-span-2 lg:col-span-1">
-              <img src={logoImage} alt="BizTech Biz Digital" className="h-8 sm:h-10 mb-4 brightness-0 invert" />
-              <p className="text-sm text-gray-400">
-                Streamline your digital agency operations with our comprehensive management platform for web development, SEO, and marketing services
-              </p>
-            </div>
-
-            {/* Quick Links */}
-            <div>
-              <h3 className="text-white font-semibold mb-4">Quick Links</h3>
-              <ul className="space-y-3">
-                <li>
-                  <button 
-                    onClick={() => navigate('/login')}
-                    className="text-sm text-gray-400 hover:text-[#2EC4B6] transition-colors"
-                  >
-                    Request Services
-                  </button>
-                </li>
-                <li>
-                  <button 
-                    onClick={() => navigate('/register')}
-                    className="text-sm text-gray-400 hover:text-[#2EC4B6] transition-colors"
-                  >
-                    Become an Agent
-                  </button>
-                </li>
-                <li>
-                  <button 
-                    onClick={() => {
-                      const workflowSection = document.querySelector('[data-workflow]');
-                      workflowSection?.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    className="text-sm text-gray-400 hover:text-[#2EC4B6] transition-colors"
-                  >
-                    How It Works
-                  </button>
-                </li>
-              </ul>
-            </div>
-
-            {/* Legal */}
-            <div>
-              <h3 className="text-white font-semibold mb-4">Legal</h3>
-              <ul className="space-y-3">
-                <li>
-                  <button 
-                    onClick={() => alert('Terms of Service - Coming Soon')}
-                    className="text-sm text-gray-400 hover:text-[#2EC4B6] transition-colors"
-                  >
-                    Terms of Service
-                  </button>
-                </li>
-                <li>
-                  <button 
-                    onClick={() => alert('Privacy Policy - Coming Soon')}
-                    className="text-sm text-gray-400 hover:text-[#2EC4B6] transition-colors"
-                  >
-                    Privacy Policy
-                  </button>
-                </li>
-              </ul>
-            </div>
-
-            {/* Contact Us */}
-            <div>
-              <h3 className="text-white font-semibold mb-4">Contact Us</h3>
-              <ul className="space-y-3">
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <Phone size={16} className="text-[#2EC4B6]" />
-                  <a 
-                    href="tel:+97150328786"
-                    className="hover:text-[#2EC4B6] transition-colors"
-                  >
-                    +971 50 328 8786
-                  </a>
-                </li>
-                <li className="flex items-center gap-2 text-sm text-gray-400">
-                  <Mail size={16} className="text-[#2EC4B6]" />
-                  <a 
-                    href="mailto:services@biztech.ae"
-                    className="hover:text-[#2EC4B6] transition-colors"
-                  >
-                    services@biztech.ae
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Copyright */}
-          <div className="border-t border-white/10 pt-8 text-center">
-            <p className="text-sm text-gray-400">
-              BizTech Biz Digital Copyright © 2025. All Rights Reserved.
-            </p>
-          </div>
-        </div>
       </section>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

@@ -1,6 +1,6 @@
-import React from 'react';
+
 import { useNavigate } from 'react-router-dom';
-import { Mail, Phone } from 'lucide-react';
+import { Mail, Phone, ArrowRight } from 'lucide-react';
 import logoImage from 'figma:asset/8c308caf909810f493480578c4eab6aa4f6235bf.png';
 
 export function Footer() {
@@ -9,26 +9,27 @@ export function Footer() {
   return (
     <footer className="bg-[#0D1B2A] text-white">
       {/* CTA Section */}
-      <div className="border-b border-white/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 text-center">
-          <h2 className="text-white mb-3">Ready to Get Started?</h2>
-          <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-            Transform your digital service delivery with our comprehensive agency management platform
+      <div className="border-b border-gray-700">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+          <h2 className="mb-4 text-white text-3xl font-heading font-bold">
+            Ready to Transform Your Business?
+          </h2>
+          <p className="text-gray-300 mb-8 max-w-2xl mx-auto leading-relaxed">
+            Join hundreds of successful businesses who trust BizTech for their growth journey.
+            <br className="hidden md:block" />
+            Let's discuss how we can help you achieve your goals.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button
-              onClick={() => navigate('/register')}
-              className="bg-[#2EC4B6] hover:bg-[#26a599] text-white px-8 py-3 rounded-lg transition-all font-medium h-[48px]"
-            >
-              Create Account
-            </button>
-            <button
-              onClick={() => navigate('/login')}
-              className="bg-white hover:bg-gray-100 text-[#0D1B2A] px-8 py-3 rounded-lg transition-all font-medium h-[48px]"
-            >
-              Sign In
-            </button>
-          </div>
+
+          {/* External Link Button */}
+          <a
+            href="https://biztech.ae/" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="bg-[#2EC4B6] hover:bg-[#26a599] text-white px-8 py-3 rounded-md transition-colors inline-flex items-center gap-2 cursor-pointer font-medium"
+          >
+            Visit BizTech Website
+            <ArrowRight size={20} />
+          </a>
         </div>
       </div>
 

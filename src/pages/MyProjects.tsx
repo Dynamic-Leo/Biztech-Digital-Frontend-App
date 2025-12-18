@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Calendar, TrendingUp, ExternalLink, Menu, X, Loader2, Briefcase, LogOut, User as UserIcon } from 'lucide-react';
+import { Calendar, TrendingUp, ExternalLink, Loader2, Briefcase } from 'lucide-react';
 import { StatusBadge } from '../components/StatusBadge';
 import { ProgressCircle } from '../components/ProgressCircle';
 import { Project } from '../types';

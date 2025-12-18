@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Upload, Folder, Lock, Eye, Download, Trash2, Plus } from 'lucide-react';
-import { Document } from '../types';
-import logoImage from 'figma:asset/8c308caf909810f493480578c4eab6aa4f6235bf.png';
+import { Upload, Calendar } from 'lucide-react';
+
+interface DocumentItem {
+  id: string;
+  name: string;
+  required: boolean;
+  status: string;
+}
 
 export function MyDocuments() {
   const navigate = useNavigate();
-  const [activeTab, setActiveTab] = useState<'credentials' | 'documents'>('credentials');
-
-  const [documents, setDocuments] = useState<Document[]>([
+  const [documents] = useState<DocumentItem[]>([
     { id: '1', name: 'Passport Copy', required: true, status: 'not-uploaded' },
     { id: '2', name: 'Visa Page', required: true, status: 'not-uploaded' },
     { id: '3', name: 'Emirates ID', required: true, status: 'not-uploaded' },

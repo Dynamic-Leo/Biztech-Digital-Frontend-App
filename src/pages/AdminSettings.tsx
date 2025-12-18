@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import { Settings, Save, Server, Database, Activity, Users, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import api from '../lib/api';
 
 export function AdminSettings() {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   
   // Settings State

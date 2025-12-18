@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { CheckCircle, XCircle, Mail, Building } from 'lucide-react';
 import { toast } from 'sonner';
 import api from '../lib/api';
 import { User } from '../types';
 
 export function AdminApprovals() {
-  const navigate = useNavigate();
   const [pendingUsers, setPendingUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
 

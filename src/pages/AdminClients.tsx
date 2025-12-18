@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Mail, Phone, Power, Search, Building } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Mail, Phone, Power, Search } from 'lucide-react';
 import { toast } from 'sonner';
 import api from '../lib/api';
 
 export function AdminClients() {
-  const navigate = useNavigate();
   const [clients, setClients] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
