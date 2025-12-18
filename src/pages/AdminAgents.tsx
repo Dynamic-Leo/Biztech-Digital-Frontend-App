@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, Mail, Phone, Power, Trash2 } from 'lucide-react';
-import { Agent } from '../types';
 import { toast } from 'sonner';
 import api from '../lib/api';
 

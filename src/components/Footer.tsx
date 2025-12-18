@@ -1,4 +1,3 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Mail, Phone } from 'lucide-react';
 import logoImage from 'figma:asset/8c308caf909810f493480578c4eab6aa4f6235bf.png';

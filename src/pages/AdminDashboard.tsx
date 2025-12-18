@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { Users, Briefcase, UserCheck, CheckCircle, XCircle, Save } from 'lucide-react';
 import api from '../lib/api';
 import { toast } from 'sonner';
 import { User, ServiceRequest } from '../types';
 
 export function AdminDashboard() {
-  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   
   // Data State

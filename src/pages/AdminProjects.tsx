@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Briefcase, Loader2, Search } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Loader2, Search } from 'lucide-react';
 import { StatusBadge } from '../components/StatusBadge';
 import api from '../lib/api';
 import { toast } from 'sonner';
 
 export function AdminProjects() {
-  const navigate = useNavigate();
   const [projects, setProjects] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('All');

@@ -1,14 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Edit2, Save, X as Mail, Building, User as UserIcon, Shield, Loader2, Phone, LogOut } from 'lucide-react';
+import { Edit2, Save, X as Mail, Building, User as UserIcon, Shield, Loader2 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { ProfileFormData } from '../types';
 import api from '../lib/api';
 import { toast } from 'sonner';
 
-
 export function MyProfile() {
- 
-  const { user, updateUser } = useAuth(); // Get logout
+  const { user, updateUser } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -98,8 +96,6 @@ export function MyProfile() {
 
   return (
     <div className="min-h-screen bg-[#F5F7FA]">
-   
-
       {/* Profile Content */}
       <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         {/* Page Header */}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Plus, FileText, FolderOpen, ArrowRight, AlertCircle, Download, Check, Loader2 } from 'lucide-react';
 import { StatusBadge } from '../components/StatusBadge';

@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import { Mail, Building, ExternalLink, Loader2 } from 'lucide-react';
 import { Client } from '../types';
 import api from '../lib/api';
 import { toast } from 'sonner';
 
 export function AgentClients() {
-  const navigate = useNavigate();
   const [clients, setClients] = useState<Client[]>([]);
   const [loading, setLoading] = useState(true);
 

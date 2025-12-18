@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Calendar, TrendingUp, ExternalLink, Menu, X, Loader2, Briefcase, LogOut, User as UserIcon } from 'lucide-react';
+import { Calendar, TrendingUp, ExternalLink, Loader2, Briefcase } from 'lucide-react';
 import { StatusBadge } from '../components/StatusBadge';
 import { ProgressCircle } from '../components/ProgressCircle';
 import { Project } from '../types';
 import api from '../lib/api';
 import { toast } from 'sonner';
-
 
 export function MyProjects() {
   const navigate = useNavigate();
@@ -65,9 +64,6 @@ export function MyProjects() {
 
   return (
     <div className="min-h-screen bg-[#F5F7FA]">
-
-
-      {/* Rest of the component ... */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <div className="mb-8">
           <h1 className="mb-2 text-[#0D1B2A]">My Projects</h1>

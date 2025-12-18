@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Briefcase, FolderOpen, Clock, Loader2, Eye, Send, RefreshCw, FilePlus } from 'lucide-react';
 import { ProposalGenerator } from '../components/ProposalGenerator';

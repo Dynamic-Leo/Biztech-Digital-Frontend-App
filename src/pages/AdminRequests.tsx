@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { FileText, Download, User, ArrowLeft, Clock, Briefcase, FileCheck, ArrowRight, Loader2, Search } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Download, User, ArrowLeft, Clock, Briefcase, FileCheck, ArrowRight, Loader2, Search } from 'lucide-react';
 import { StatusBadge } from '../components/StatusBadge';
 import api from '../lib/api';
 import { toast } from 'sonner';
@@ -37,7 +36,6 @@ interface ClientSummary {
 }
 
 export function AdminRequests() {
-  const navigate = useNavigate();
   const [view, setView] = useState<'list' | 'timeline'>('list');
   const [loading, setLoading] = useState(true);
   const [clients, setClients] = useState<ClientSummary[]>([]);

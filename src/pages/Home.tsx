@@ -1,7 +1,5 @@
-import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, CheckCircle, Shield, Zap, Users, FileText, BarChart, Lock, Phone, Mail } from 'lucide-react';
-import { Footer } from '../components/Footer';
+import { ArrowRight,  Shield, Zap, Users, FileText, BarChart, Lock, Phone, Mail } from 'lucide-react';
 import logoImage from 'figma:asset/8c308caf909810f493480578c4eab6aa4f6235bf.png';
 
 export function Home() {

@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Edit2, Mail, Phone, Award, Briefcase, Save, Loader2, Shield } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Edit2, Mail, Phone, Award, Save, Loader2, Shield } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import api from '../lib/api';
 import { toast } from 'sonner';
 
 export function AgentProfile() {
-  const navigate = useNavigate();
   const { user, updateUser } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);

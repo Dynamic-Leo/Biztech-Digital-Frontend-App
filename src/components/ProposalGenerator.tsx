@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Save, Loader2, Plus, Trash2, Mail } from 'lucide-react';
 import { toast } from 'sonner';
 import api from '../lib/api';
@@ -200,7 +200,7 @@ export function ProposalGenerator({
             </div>
 
             <div className="space-y-3">
-              {proposalData.items.map((item, index) => (
+              {proposalData.items.map((item) => (
                 <div key={item.id} className="flex gap-3 items-start bg-gray-50 p-4 rounded-lg">
                   <div className="flex-1 grid grid-cols-1 md:grid-cols-12 gap-3">
                     <div className="md:col-span-6">

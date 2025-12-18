@@ -1,8 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ArrowLeft } from 'lucide-react';
-import { ProposalGenerator } from '../components/ProposalGenerator';
+import { ArrowLeft, Plus, Trash2, FileText, Send } from 'lucide-react';
+import api from '../lib/api';
 import { toast } from 'sonner';
+
+interface ProposalItem {
+  id: string;
+  description: string;
+  price: number;
+}
 
 export function ProposalBuilder() {
   const navigate = useNavigate();
@@ -37,17 +43,37 @@ export function ProposalBuilder() {
 
   const total = items.reduce((sum, item) => sum + (item.price || 0), 0);
 
+  const handleGenerate = async () => {
+    try {
+      await api.post('/proposals', {
+        requestId,
+        items: items.map(item => ({
+          description: item.description,
+          price: item.price
+        })),
+        notes,
+        totalAmount: total
+      });
+      
+      toast.success('Proposal generated and sent successfully!');
+      navigate('/agent/dashboard');
+    } catch (error) {
+      console.error(error);
+      toast.error('Failed to generate proposal');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-[#F8F9FA]">
       {/* Header */}
       <header className="bg-[#0D1B2A] text-white py-6 px-8 shadow-lg">
         <div className="max-w-5xl mx-auto">
           <button
-            onClick={() => navigate('/queue')}
+            onClick={() => navigate('/agent/dashboard')}
             className="text-[#2EC4B6] hover:text-white mb-4 flex items-center gap-2 transition-colors"
           >
             <ArrowLeft size={20} />
-            Back to Queue
+            Back to Dashboard
           </button>
           <h2 className="mb-2">Proposal Builder</h2>
           <p className="text-gray-400 text-sm">Request #REQ-{requestId} • ABC Trading LLC</p>
@@ -151,16 +177,7 @@ export function ProposalBuilder() {
               </button>
 
               <button
-                onClick={() => {
-                  const proposal = {
-                    requestId,
-                    items,
-                    notes,
-                    total
-                  };
-                  ProposalGenerator(proposal);
-                  toast.success('Proposal generated and sent successfully!');
-                }}
+                onClick={handleGenerate}
                 className="w-full bg-[#2EC4B6] hover:bg-[#26a599] text-white px-4 py-3 rounded-lg flex items-center justify-center gap-2 transition-colors"
               >
                 <Send size={18} />
