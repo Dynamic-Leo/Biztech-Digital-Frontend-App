@@ -18,15 +18,15 @@ jobs:
       with:
         node-version: '18'
 
-    # THIS STEP IS CRITICAL
-    # It finds your local API link and replaces it with the LIVE DIGITAL API link
+    - name: 📦 Install Dependencies
+      run: npm install
+
+    # Replaces local API URL with Production API URL
     - name: 🔗 Update API URL for Production
       run: |
         sed -i 's|http://localhost:3000/api/v1|https://api.digital.biztech.ae/api/v1|g' src/lib/api.ts
 
-    - name: 📦 Install Dependencies
-      run: npm install
-
+    # Builds the React App
     - name: 🏗️ Build Project
       run: npm run build
 
@@ -36,5 +36,22 @@ jobs:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./build/    # Uploads the built files
-        server-dir: /         # Uploads to root of 'digital.biztech.ae'
+        
+        # We use 'ftps' for security on port 21
+        protocol: ftps 
+        
+        # Matches the output folder from vite
+        local-dir: ./build/  
+        
+        # CHANGED: Since you are using a specific FTP user, 
+        # the root is likely already the correct folder.
+        server-dir: ./
+        
+        # Exclude cPanel system files so the site doesn't break
+        exclude: |
+          **/.git*
+          **/.git*/**
+          **/node_modules/**
+          **/cgi-bin/**
+          **/.well-known/**
+          **/.ftpquota
