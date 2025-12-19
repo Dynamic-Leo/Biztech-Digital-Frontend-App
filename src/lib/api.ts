@@ -2,10 +2,10 @@ import axios from 'axios';
 
 // local dev: http://localhost:3000/api/v1 (set in .env)
 // production: https://your-api.com/api/v1 (set in .env.production)
-const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
+// const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
 
 const api = axios.create({
-  baseURL,
+  baseURL: 'https://api.digital.biztech.ae/api/v1',
   headers: {
     'Content-Type': 'application/json',
   },
