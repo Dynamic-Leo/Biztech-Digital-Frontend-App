@@ -36,5 +36,5 @@ jobs:
         server: ${{ secrets.FTP_SERVER }}
         username: ${{ secrets.FTP_USERNAME }}
         password: ${{ secrets.FTP_PASSWORD }}
-        local-dir: ./dist/    # Uploads the built files
+        local-dir: ./build/    # Uploads the built files
         server-dir: /         # Uploads to root of 'digital.biztech.ae'
