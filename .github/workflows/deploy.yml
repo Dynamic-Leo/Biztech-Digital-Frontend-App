@@ -24,7 +24,7 @@ jobs:
     # Replaces local API URL with Production API URL
     - name: 🔗 Update API URL for Production
       run: |
-        sed -i 's|http://localhost:3000/api/v1|https://api.digital.biztech.ae/api/v1|g' src/lib/api.ts
+        sed -i 's|http://localhost:3000/api/v1|https://api.digital.biztech.ae|g' src/lib/api.ts
 
     # Builds the React App
     - name: 🏗️ Build Project
