@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:3000/api/v1';
+const API_BASE_URL = 'https://api.digital.biztech.ae';
 
 export const api = {
   async request(endpoint: string, options: RequestInit = {}) {
