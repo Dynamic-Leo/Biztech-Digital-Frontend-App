@@ -6950,7 +6950,7 @@ export function AgentProjectManagement() {
   const getFileUrl = (path: string) => {
     const baseUrl = import.meta.env.VITE_API_URL 
       ? import.meta.env.VITE_API_URL.replace('/api/v1', '') 
-      : 'http://localhost:3000';
+      : 'https://api.digital.biztech.ae';
     return `${baseUrl}/${path.replace(/\\/g, '/')}`;
   };
 
@@ -8401,7 +8401,7 @@ export function ProjectCommandCenter() {
   const getFileUrl = (path: string) => {
     const baseUrl = import.meta.env.VITE_API_URL 
       ? import.meta.env.VITE_API_URL.replace('/api/v1', '') 
-      : 'http://localhost:3000';
+      : 'https://api.digital.biztech.ae';
     return `${baseUrl}/${path.replace(/\\/g, '/')}`;
   };
 
@@ -9323,7 +9323,7 @@ export default defineConfig({
     open: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'https://api.digital.biztech.ae',
         changeOrigin: true,
         secure: false,
       }
@@ -11791,7 +11791,7 @@ export function AgentDashboard() {
   const getPDFUrl = (path: string) => {
     const baseUrl = import.meta.env.VITE_API_URL 
       ? import.meta.env.VITE_API_URL.replace('/api/v1', '') 
-      : 'http://localhost:3000';
+      : 'https://api.digital.biztech.ae';
     return `${baseUrl}/${path.replace(/\\/g, '/')}`;
   };
 
@@ -12425,7 +12425,7 @@ export function ClientDashboard() {
     // Backend serves static files at root "/uploads" -> "http://localhost:3000/uploads/..."
     const baseUrl = import.meta.env.VITE_API_URL 
       ? import.meta.env.VITE_API_URL.replace('/api/v1', '') 
-      : 'http://localhost:3000';
+      : 'https://api.digital.biztech.ae';
     
     const cleanPath = pdfPath.replace(/\\/g, '/'); // Fix Windows backslashes
     const fullUrl = `${baseUrl}/${cleanPath}`;
@@ -13796,7 +13796,7 @@ export function AdminRequests() {
   const handleViewPdf = (pdfPath: string) => {
     const baseUrl = import.meta.env.VITE_API_URL 
       ? import.meta.env.VITE_API_URL.replace('/api/v1', '') 
-      : 'http://localhost:3000';
+      : 'https://api.digital.biztech.ae';
     const fullUrl = `${baseUrl}/${pdfPath.replace(/\\/g, '/')}`;
     window.open(fullUrl, '_blank');
   };

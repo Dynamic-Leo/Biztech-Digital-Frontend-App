@@ -48,7 +48,7 @@ export default defineConfig({
     open: true,
     proxy: {
       '/api': {
-        target: 'http://localhost:3000',
+        target: 'https://api.digital.biztech.ae',
         changeOrigin: true,
         secure: false,
       }
