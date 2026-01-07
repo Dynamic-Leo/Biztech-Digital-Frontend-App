@@ -5,7 +5,7 @@ import axios from 'axios';
 // const baseURL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api/v1';
 
 const api = axios.create({
-  baseURL: 'https://api.digital.biztech.ae/api/v1',
+  baseURL: import.meta.env.VITE_API_URL || 'https://api.digital.biztech.ae/api/v1', 
   headers: {
     'Content-Type': 'application/json',
   },
