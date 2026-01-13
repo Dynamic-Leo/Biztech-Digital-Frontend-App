@@ -36,6 +36,7 @@ import { AdminSettings } from './pages/AdminSettings';
 import { AdminServices } from './pages/AdminServices';
 import { AdminClients } from './pages/AdminClients';   // <-- New
 import { AdminProjects } from './pages/AdminProjects'; // <-- New
+import { ResetPassword } from './pages/ResetPassword';
 
 export default function App() {
   return (
@@ -50,6 +51,7 @@ export default function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/reset-password/:token" element={<ResetPassword />} />
             <Route path="/pending-approval" element={<PendingApproval />} />
 
             {/* --- Client Routes (Uses ClientLayout with Header) --- */}
