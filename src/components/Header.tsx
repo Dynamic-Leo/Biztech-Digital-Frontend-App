@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Menu, X, LogOut, User as UserIcon } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import logoImage from 'figma:asset/8c308caf909810f493480578c4eab6aa4f6235bf.png';
+import logoImage from '../assets/logo.png';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -48,7 +48,7 @@ export function Header({ variant = 'default' }: HeaderProps) {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex items-center gap-2 z-10 cursor-pointer" onClick={() => navigate(isAuthenticated ? '/client-dashboard' : '/')}>
-            <img src={logoImage} alt="BizTech" className="h-7 sm:h-8" />
+            <img src={logoImage} alt="BizDigital" className="w-auto h-50 hover:cursor-pointer" />
           </div>
 
           {/* === DESKTOP NAVIGATION === */}
@@ -76,13 +76,13 @@ export function Header({ variant = 'default' }: HeaderProps) {
               <div className="hidden md:flex items-center gap-4">
                 <button
                   onClick={() => navigate('/login')}
-                  className="text-[#1A202C] hover:text-[#2EC4B6] transition-colors text-sm font-medium"
+                  className="text-[#1A202C] hover:text-[#2EC4B6] transition-colors text-sm font-medium hover:cursor-pointer"
                 >
                   Sign In
                 </button>
                 <button
                   onClick={() => navigate('/register')}
-                  className="bg-gradient-to-r from-[#2EC4B6] to-[#26a599] text-white px-5 py-2 rounded-lg hover:shadow-md transition-all text-sm font-medium"
+                  className="bg-gradient-to-r from-[#2EC4B6] to-[#26a599] text-white px-5 py-2 rounded-lg hover:shadow-md transition-all text-sm font-medium hover:cursor-pointer"
                 >
                   Get Started
                 </button>

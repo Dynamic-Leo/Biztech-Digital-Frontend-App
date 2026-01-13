@@ -1,7 +1,7 @@
 
 import { useNavigate } from 'react-router-dom';
 import { Clock, Shield, ArrowLeft, CheckCircle } from 'lucide-react';
-import logoImage from 'figma:asset/8c308caf909810f493480578c4eab6aa4f6235bf.png';
+import logoImage from '../assets/logo.png';
 
 export function PendingApproval() {
   const navigate = useNavigate();
@@ -15,7 +15,7 @@ export function PendingApproval() {
             onClick={() => navigate('/')}
             className="flex items-center justify-center gap-2 mb-6 mx-auto hover:opacity-80 transition-opacity"
           >
-            <img src={logoImage} alt="BizTech" className="h-8 sm:h-10" />
+            <img src={logoImage} alt="BizTech" className="w-auto h-20" />
           </button>
         </div>
 

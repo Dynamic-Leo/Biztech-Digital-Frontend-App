@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Eye, EyeOff, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'sonner';
-import logoImage from 'figma:asset/8c308caf909810f493480578c4eab6aa4f6235bf.png';
+import logoImage from '../assets/logo.png';
 
 export function Register() {
   const navigate = useNavigate();
@@ -123,13 +123,13 @@ export function Register() {
       <div className="w-full max-w-2xl">
         <div className="mb-8 text-center">
           <button 
-            onClick={() => navigate('/')}
-            className="flex items-center justify-center gap-2 mb-6 mx-auto hover:opacity-80 transition-opacity"
+            onClick={() => navigate('/home')}
+            className="flex items-center justify-center gap-2 mb-6 mx-auto hover:opacity-80 transition-opacity hover:cursor-pointer"
           >
-            <img src={logoImage} alt="BizTech" className="h-8 sm:h-10" />
+            <img src={logoImage} alt="BizTech" className="w-auto h-25" />
           </button>
           
-          <h1 className="mb-2 text-[#1A202C]">Create Your Account</h1>
+          <h1 className="-mt-5 mb-2 text-[#1A202C]">Create Your Account</h1>
           <p className="text-[#4A5568] text-sm sm:text-base">Join BizSetup to streamline your business setup</p>
         </div>
 

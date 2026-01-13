@@ -1,7 +1,7 @@
 
 import { useNavigate } from 'react-router-dom';
 import { Mail, Phone, ArrowRight } from 'lucide-react';
-import logoImage from 'figma:asset/8c308caf909810f493480578c4eab6aa4f6235bf.png';
+import logoImage from '../assets/logo.png';
 
 export function Footer() {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ export function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <img src={logoImage} alt="BizTech Biz Digital" className="h-8" />
+              <img src={logoImage} alt="BizTech Biz Digital" className="h-15 bg-white rounded-[5px]" />
             </div>
             <p className="text-gray-400 text-sm leading-relaxed">
               Streamline your digital agency operations with our comprehensive management platform for web development, SEO, and marketing services

@@ -1,7 +1,7 @@
 
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, Shield, Zap, Users, FileText, BarChart, Lock } from 'lucide-react';
-import logoImage from 'figma:asset/8c308caf909810f493480578c4eab6aa4f6235bf.png';
+import logoImage from '../assets/logo.png';
 import { Footer } from '../components/Footer';
 
 export function Home() {
@@ -14,18 +14,18 @@ export function Home() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16 sm:h-20">
             <button onClick={() => navigate('/')} className="flex items-center hover:opacity-80 transition-opacity">
-              <img src={logoImage} alt="BizTech" className="h-8 sm:h-10" />
+              <img src={logoImage} alt="BizTech" className="w-auto h-20 hover:cursor-pointer" />
             </button>
             <div className="flex items-center gap-2 sm:gap-4">
               <button
                 onClick={() => navigate('/login')}
-                className="text-[#1A202C] hover:text-[#2EC4B6] transition-colors text-sm sm:text-base px-3 sm:px-4 py-2"
+                className="text-[#1A202C] hover:text-[#2EC4B6] transition-colors text-sm sm:text-base px-3 sm:px-4 py-2 hover:cursor-pointer"
               >
                 Sign In
               </button>
               <button
                 onClick={() => navigate('/register')}
-                className="bg-gradient-to-r from-[#2EC4B6] to-[#26a599] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg hover:shadow-lg transition-all text-sm sm:text-base"
+                className="bg-gradient-to-r from-[#2EC4B6] to-[#26a599] text-white px-4 sm:px-6 py-2 sm:py-2.5 rounded-lg hover:shadow-lg transition-all text-sm sm:text-base hover:cursor-pointer"
               >
                 Get Started
               </button>
@@ -42,7 +42,7 @@ export function Home() {
             <span className="text-xs sm:text-sm text-[#1A202C]">Streamline Your Digital Services</span>
           </div>
           
-          <h1 className="mb-4 sm:mb-6 text-[#0D1B2A] text-3xl sm:text-5xl lg:text-6xl font-bold">
+          <h1 className="mb-4 sm:mb-6 text-[#0D1B2A] text-3xl sm:text-5xl lg:text-6xl font-bold leading-tight">
             Agency Management Portal for <span className="text-[#2EC4B6]">Digital Services</span>
           </h1>
           
@@ -53,14 +53,14 @@ export function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4">
             <button
               onClick={() => navigate('/register')}
-              className="w-full sm:w-auto min-w-[160px] bg-gradient-to-r from-[#2EC4B6] to-[#26a599] text-white px-8 py-3 rounded-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 group h-[48px]"
+              className="w-full sm:w-auto min-w-[180px] flex-row justify-center bg-gradient-to-r from-[#2EC4B6] to-[#26a599] text-white rounded-lg hover:shadow-xl transition-all flex items-center justify-center gap-2 group h-[50px]"
             >
               Get Started
               <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
             </button>
             <button
               onClick={() => navigate('/login')}
-              className="w-full sm:w-auto min-w-[160px] border-2 border-[#0D1B2A] text-[#0D1B2A] px-8 py-3 rounded-lg hover:bg-[#0D1B2A] hover:text-white transition-all h-[48px]"
+              className="w-full sm:w-auto min-w-[160px] flex-row justify-center border-2 border-[#0D1B2A] text-[#0D1B2A] rounded-lg hover:bg-[#0D1B2A] hover:text-white transition-all h-[50px]"
             >
               Sign In
             </button>

@@ -1,14 +1,30 @@
-const API_BASE_URL = 'https://api.digital.biztech.ae/api/v1';
+const API_BASE_URL =
+  import.meta.env.VITE_API_BASE_URL || 'http://localhost:3000/api/v1';
+
+type ApiError = Error & { status?: number; data?: any };
+
+async function safeParseJson(response: Response) {
+  const contentType = response.headers.get('content-type') || '';
+  if (!contentType.includes('application/json')) return null;
+
+  try {
+    return await response.json();
+  } catch {
+    return null;
+  }
+}
 
 export const api = {
   async request(endpoint: string, options: RequestInit = {}) {
-    // Get token from localStorage
     const token = localStorage.getItem('token');
-    
-    const headers = {
-      'Content-Type': 'application/json',
+
+    // If body is FormData, don't set Content-Type (browser will set boundary).
+    const isFormData = options.body instanceof FormData;
+
+    const headers: Record<string, string> = {
       ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...options.headers,
+      ...(isFormData ? {} : { 'Content-Type': 'application/json' }),
+      ...(options.headers as Record<string, string> | undefined),
     };
 
     const response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -16,13 +32,19 @@ export const api = {
       headers,
     });
 
-    const data = await response.json();
+    const data = await safeParseJson(response);
 
     if (!response.ok) {
-      // Pass the backend error message
-      throw new Error(data.message || 'API request failed');
+      const err: ApiError = new Error(
+        (data && (data.message || data.error)) ||
+          `Request failed (${response.status})`
+      );
+      err.status = response.status;
+      err.data = data;
+      throw err;
     }
 
+    // Return parsed JSON if present, otherwise return null (or you can return response)
     return data;
   },
 
@@ -31,16 +53,32 @@ export const api = {
   },
 
   post(endpoint: string, body: any) {
+    const isFormData = body instanceof FormData;
+
     return this.request(endpoint, {
       method: 'POST',
-      body: JSON.stringify(body),
+      body: isFormData ? body : JSON.stringify(body),
+    });
+  },
+
+  put(endpoint: string, body?: any) {
+    const hasBody = typeof body !== 'undefined';
+    const isFormData = body instanceof FormData;
+
+    return this.request(endpoint, {
+      method: 'PUT',
+      ...(hasBody
+        ? { body: isFormData ? body : JSON.stringify(body) }
+        : {}),
     });
   },
 
   patch(endpoint: string, body: any) {
+    const isFormData = body instanceof FormData;
+
     return this.request(endpoint, {
       method: 'PATCH',
-      body: JSON.stringify(body),
+      body: isFormData ? body : JSON.stringify(body),
     });
   },
 

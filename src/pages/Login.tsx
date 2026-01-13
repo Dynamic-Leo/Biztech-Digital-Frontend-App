@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Eye, EyeOff } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from 'sonner';
-import logoImage from 'figma:asset/8c308caf909810f493480578c4eab6aa4f6235bf.png';
+import logoImage from '../assets/logo.png';
 
 export function Login() {
   const navigate = useNavigate();
@@ -85,13 +85,13 @@ export function Login() {
         {/* Logo and Header */}
         <div className="mb-8 text-center">
           <button 
-            onClick={() => navigate('/')}
-            className="flex items-center justify-center gap-2 mb-6 mx-auto hover:opacity-80 transition-opacity"
+            onClick={() => navigate('/home')}
+            className="flex items-center justify-center gap-2 mb-6 mx-auto hover:opacity-80 transition-opacity hover:cursor-pointer"
           >
-            <img src={logoImage} alt="BizTech" className="h-8 sm:h-10" />
+            <img src={logoImage} alt="BizTech" className="w-auto h-25" />
           </button>
           
-          <h1 className="mb-2 text-[#1A202C]">Welcome Back</h1>
+          <h1 className=" -mt-5 mb-2 text-[#1A202C]">Welcome Back</h1>
           <p className="text-[#4A5568] text-sm sm:text-base">Sign in to access your business hub</p>
         </div>
 
@@ -137,7 +137,7 @@ export function Login() {
                 <button
                   type="button"
                   onClick={() => navigate('/forgot-password')}
-                  className="text-xs text-[#2EC4B6] hover:text-[#26a599] transition-colors"
+                  className="text-xs text-[#2EC4B6] hover:text-[#26a599] transition-colors hover:cursor-pointer"
                 >
                   Forgot?
                 </button>

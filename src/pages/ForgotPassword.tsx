@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowLeft, CheckCircle, Mail } from 'lucide-react';
-import logoImage from 'figma:asset/8c308caf909810f493480578c4eab6aa4f6235bf.png';
+import logoImage from '../assets/logo.png';
+import api from '../services/api';
+import { toast } from 'sonner';
+
 
 export function ForgotPassword() {
   const navigate = useNavigate();
@@ -23,21 +26,37 @@ export function ForgotPassword() {
     return true;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!validateEmail(email)) {
       return;
     }
 
     setIsLoading(true);
-    
-    // Simulate sending reset email
-    setTimeout(() => {
-      setIsLoading(false);
+    setError('');
+
+    try {
+      const response = await api.post('/auth/forgot-password', { email });
+
+      toast.success(response.message || 'Password reset email sent');
       setIsSubmitted(true);
-    }, 1500);
+
+      // Optional redirect after delay
+      setTimeout(() => {
+        navigate('/login');
+      }, 3000);
+
+    } catch (err: any) {
+      const message =
+        err?.message || 'Failed to send reset email. Please try again.';
+      setError(message);
+      toast.error(message);
+    } finally {
+      setIsLoading(false);
+    }
   };
+
 
   if (isSubmitted) {
     return (
@@ -46,7 +65,7 @@ export function ForgotPassword() {
           {/* Logo */}
           <div className="mb-8 text-center">
             <div className="flex items-center justify-center gap-2 mb-6">
-              <img src={logoImage} alt="BizTech" className="h-8 sm:h-10" />
+              <img src={logoImage} alt="BizTech" className="w-auto h-20" />
             </div>
           </div>
 
@@ -109,7 +128,7 @@ export function ForgotPassword() {
         <div className="bg-white rounded-xl shadow-lg border border-gray-200 p-6 sm:p-8">
           <button
             onClick={() => navigate('/login')}
-            className="flex items-center gap-2 text-[#2EC4B6] hover:text-[#26a599] text-sm mb-6 transition-colors group"
+            className="flex items-center gap-2 text-[#2EC4B6] hover:text-[#26a599] text-sm mb-6 transition-colors group hover:cursor-pointer"
           >
             <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" />
             Back to Sign In
@@ -155,7 +174,7 @@ export function ForgotPassword() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-[#0D1B2A] to-[#1a2d42] hover:from-[#1a2d42] hover:to-[#0D1B2A] text-white py-3 rounded-lg transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98]"
+              className="hover:cursor-pointer w-full bg-gradient-to-r from-[#0D1B2A] to-[#1a2d42] hover:from-[#1a2d42] hover:to-[#0D1B2A] text-white py-3 rounded-lg transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98]"
             >
               {isLoading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -181,7 +200,7 @@ export function ForgotPassword() {
           {/* Create Account Link */}
           <button
             onClick={() => navigate('/register')}
-            className="w-full border-2 border-[#2EC4B6] text-[#2EC4B6] hover:bg-[#2EC4B6] hover:text-white py-3 rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+            className="hover:cursor-pointer w-full border-2 border-[#2EC4B6] text-[#2EC4B6] hover:bg-[#2EC4B6] hover:text-white py-3 rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98]"
           >
             Create New Account
           </button>
