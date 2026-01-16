@@ -166,7 +166,7 @@ export function AdminRequests() {
                         <h3 className="font-semibold text-[#0D1B2A]">
                           {client.name}
                         </h3>
-                        <p className="text-xs text-gray-500">
+                        <p className="text-xs text-white">
                           {client.company}
                         </p>
                       </div>
@@ -190,21 +190,21 @@ export function AdminRequests() {
         <div className="animate-in slide-in-from-right-4 fade-in duration-300">
           <button
             onClick={handleBack}
-            className="flex items-center gap-2 text-gray-500 hover:text-[#0D1B2A] mb-6 transition-colors"
+            className="flex items-center gap-2 text-gray-500 hover:text-[#0D1B2A] mb-6 transition-colors hover:cursor-pointer"
           >
             <ArrowLeft size={18} /> Back to Clients
           </button>
 
           <div className="bg-[#0D1B2A] text-white p-6 rounded-xl shadow-lg mb-8 flex justify-between items-center">
             <div>
-              <h2 className="text-2xl font-bold">{selectedClient.name}</h2>
+              <h2 className="text-2xl font-bold text-white mb-2">{selectedClient.name}</h2>
               <p className="text-gray-400">{selectedClient.company}</p>
             </div>
             <div className="text-right">
-              <p className="text-xs text-gray-400 uppercase tracking-wide">
+              <p className="text-xs text-gray-200 uppercase tracking-wide mb-2">
                 Total Requests
               </p>
-              <p className="text-xl font-bold">{timelineData.length}</p>
+              <p className="text-xl font-bold text-gray-400">{timelineData.length}</p>
             </div>
           </div>
 
