@@ -93,14 +93,14 @@ export function AdminAgents() {
 
   return (
     <>
-      <div className="flex justify-between items-start mb-8">
+      <div className="flex md:flex-row flex-col justify-between items-start mb-8 mt-15 md:mt-0">
         <div>
           <h1 className="mb-2 text-[#0D1B2A]">Agent Management</h1>
           <p className="text-[#4A5568]">Create, manage, and monitor agent accounts</p>
         </div>
         <button
           onClick={() => setShowAddAgent(true)}
-          className="flex items-center gap-2 bg-[#2EC4B6] text-white px-6 py-2.5 rounded-lg hover:bg-[#26a599] transition-all font-medium"
+          className="flex items-center gap-2 bg-[#2EC4B6] text-white px-6 py-2.5 rounded-lg hover:bg-[#26a599] transition-all font-medium mt-5 md:mt-0"
         >
           <Plus size={20} /> Add New Agent
         </button>

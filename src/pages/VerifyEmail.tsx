@@ -112,11 +112,11 @@ export function VerifyEmail() {
     <div className="min-h-screen bg-background flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-8 text-center">
         <a href="/" className="flex justify-center mb-6">
-            <img src={bizSetupLogo} alt="BizSetup" className="h-16 w-auto" />
+            <img src={bizSetupLogo} alt="BizSetup" className="h-20 w-auto" />
           </a>
-        <Card>
+        <Card className="bg-white">
           <CardHeader>
-            <CardTitle className="text-destructive flex justify-center items-center gap-2">
+            <CardTitle className="text-destructive flex justify-center items-center gap-2 text-[#E74C3C]">
               <XCircle className="w-6 h-6" /> Verification Failed
             </CardTitle>
             <CardDescription>{message}</CardDescription>
@@ -124,7 +124,7 @@ export function VerifyEmail() {
           <CardContent className="space-y-4">
             <Button
               onClick={() => navigate("/login")}
-              className="w-full bg-primary hover:bg-primary/90"
+              className="w-full bg-primary hover:bg-primary/90 bg-[#102536] hover:cursor-pointer hover:bg-[#0d1e29]/90 text-white"
             >
               Back to Login
             </Button>

@@ -161,7 +161,7 @@ export function Login() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors p-1"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 hover:cursor-pointer text-gray-400 hover:text-gray-600 transition-colors p-1"
                   aria-label={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
@@ -176,7 +176,7 @@ export function Login() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-[#0D1B2A] to-[#1a2d42] hover:from-[#1a2d42] hover:to-[#0D1B2A] text-white py-3 rounded-lg transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98]"
+              className="w-full bg-gradient-to-r from-[#0D1B2A] to-[#1a2d42] hover:cursor-pointer hover:from-[#1a2d42] hover:to-[#0D1B2A] text-white py-3 rounded-lg transition-all shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-[1.02] active:scale-[0.98]"
             >
               {isLoading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -202,7 +202,7 @@ export function Login() {
           {/* Sign Up Link */}
           <button
             onClick={() => navigate('/register')}
-            className="w-full border-2 border-[#2EC4B6] text-[#2EC4B6] hover:bg-[#2EC4B6] hover:text-white py-3 rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98]"
+            className="w-full border-2 border-[#2EC4B6] hover:cursor-pointer text-[#2EC4B6] hover:bg-[#2EC4B6] hover:text-white py-3 rounded-lg transition-all transform hover:scale-[1.02] active:scale-[0.98]"
           >
             Create an Account
           </button>

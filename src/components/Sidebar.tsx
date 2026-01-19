@@ -1,6 +1,7 @@
 import React from 'react';
 import { LayoutDashboard, Users, User, LogOut, Settings, FileText, Briefcase, Menu, X, Layers, FolderOpen } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
+import logoImage from "../assets/logo.png";
 
 interface SidebarProps {
   role: 'client' | 'agent' | 'admin';
@@ -47,12 +48,13 @@ export function Sidebar({ role, activePage, onNavigate, userName = 'User' }: Sid
     <>
       <div className="lg:hidden fixed top-0 left-0 right-0 bg-[#0D1B2A] border-b border-white/10 z-50">
         <div className="flex items-center justify-between p-4">
-          <div className="flex items-center gap-3">
-            <div className="w-9 h-9 bg-[#2EC4B6] rounded-lg flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold">BT</span>
+          <div className="flex justify-center">
+              <img
+                src={logoImage}
+                alt="BizTech"
+                className="h-20 w-auto object-contain bg-white rounded-[5px]"
+              />
             </div>
-            <span className="text-white text-lg font-semibold">BizSetup</span>
-          </div>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="text-white p-2 hover:bg-white/10 rounded-lg transition-colors"
@@ -80,11 +82,12 @@ export function Sidebar({ role, activePage, onNavigate, userName = 'User' }: Sid
         `}
       >
         <div className="hidden lg:block p-6 border-b border-white/10">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#2EC4B6] rounded-lg flex items-center justify-center shadow-lg">
-              <span className="text-white font-bold text-lg">BT</span>
-            </div>
-            <span className="text-white text-xl font-semibold">BizSetup</span>
+          <div className="flex justify-center">
+            <img
+              src={logoImage}
+              alt="BizTech"
+              className="h-20 w-auto object-contain bg-white rounded-[5px]"
+            />
           </div>
         </div>
 
@@ -98,7 +101,7 @@ export function Sidebar({ role, activePage, onNavigate, userName = 'User' }: Sid
                 <li key={item.id}>
                   <button
                     onClick={() => handleNavigation(item.path)}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+                    className={`w-full flex items-center gap-3 px-4 py-3 hover:cursor-pointer rounded-lg transition-colors ${
                       isActive
                         ? 'bg-[#2EC4B6] text-white'
                         : 'text-gray-400 hover:bg-white/5 hover:text-white'
