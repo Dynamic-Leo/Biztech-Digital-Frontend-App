@@ -217,7 +217,14 @@ export function ProposalGenerator({
                         type="number"
                         placeholder="Qty"
                         value={item.quantity}
-                        onChange={(e) => updateItem(item.id, 'quantity', parseInt(e.target.value) || 0)}
+                        onChange={(e) =>
+                          updateItem(
+                            item.id,
+                            'quantity',
+                            Math.max(0, Number(e.target.value))
+                          )
+                        }
+
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#2EC4B6]"
                       />
                     </div>
@@ -226,7 +233,7 @@ export function ProposalGenerator({
                         type="number"
                         placeholder="Price"
                         value={item.unitPrice}
-                        onChange={(e) => updateItem(item.id, 'unitPrice', parseFloat(e.target.value) || 0)}
+                        onChange={(e) => updateItem(item.id, 'unitPrice', parseFloat(e.target.value))}
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-[#2EC4B6]"
                       />
                     </div>

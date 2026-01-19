@@ -46,18 +46,18 @@ export function Sidebar({ role, activePage, onNavigate, userName = 'User' }: Sid
 
   return (
     <>
-      <div className="lg:hidden fixed top-0 left-0 right-0 bg-[#0D1B2A] border-b border-white/10 z-50">
+      <div className="lg:hidden fixed top-0 left-0 right-0 bg-[#F5F7FA] border-b border-[#0D1B2A] z-50">
         <div className="flex items-center justify-between p-4">
           <div className="flex justify-center">
               <img
                 src={logoImage}
                 alt="BizTech"
-                className="h-20 w-auto object-contain bg-white rounded-[5px]"
+                className="h-20 w-auto object-contain rounded-[5px]"
               />
             </div>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="text-white p-2 hover:bg-white/10 rounded-lg transition-colors"
+            className="text-[#0D1B2A] p-2 hover:bg-white/10 rounded-lg transition-colors"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
@@ -66,10 +66,11 @@ export function Sidebar({ role, activePage, onNavigate, userName = 'User' }: Sid
 
       {mobileMenuOpen && (
         <div
-          className="lg:hidden fixed inset-0 bg-black/50 z-40 mt-[64px]"
+          className="lg:hidden fixed inset-0 bg-black/50 z-40 "
           onClick={() => setMobileMenuOpen(false)}
         />
       )}
+      
 
       <div
         className={`
@@ -78,7 +79,7 @@ export function Sidebar({ role, activePage, onNavigate, userName = 'User' }: Sid
           w-64
           lg:translate-x-0
           ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
-          lg:mt-0 mt-[64px]
+          lg:mt-0
         `}
       >
         <div className="hidden lg:block p-6 border-b border-white/10">
