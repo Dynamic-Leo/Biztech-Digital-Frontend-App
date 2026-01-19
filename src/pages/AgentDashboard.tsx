@@ -125,7 +125,7 @@ export function AgentDashboard() {
 
   return (
     <>
-      <div className="mb-6">
+      <div className="mb-6 mt-15 md:mt-0">
         <p className="text-sm text-[#4A5568] mb-2">Agent Dashboard</p>
       </div>
 
@@ -171,7 +171,7 @@ export function AgentDashboard() {
           </p>
         </div>
 
-        <div className="hidden md:block overflow-x-auto">
+        <div className="md:block overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="border-b border-gray-200">

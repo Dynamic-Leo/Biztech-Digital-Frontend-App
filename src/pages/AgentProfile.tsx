@@ -111,14 +111,14 @@ export function AgentProfile() {
   return (
     <>
       {/* Page Header */}
-      <div className="flex justify-between items-start mb-8">
+      <div className="flex md:flex-row flex-col justify-between items-start mb-8 mt-15 md:mt-0">
         <div>
           <h1 className="mb-2 text-[#0D1B2A]">My Profile</h1>
           <p className="text-[#4A5568]">Manage your professional information and settings</p>
         </div>
         <button
           onClick={() => setIsEditing(!isEditing)}
-          className={`flex items-center gap-2 px-6 py-2.5 rounded-lg font-medium transition-all h-[44px] border-2 ${
+          className={`flex items-center md:mt-0 mt-5 gap-2 px-6 py-2.5 rounded-lg font-medium transition-all h-[44px] border-2 ${
             isEditing 
               ? 'bg-gray-100 border-gray-300 text-gray-700' 
               : 'border-[#2EC4B6] text-[#2EC4B6] hover:bg-[#F0FDFA]'

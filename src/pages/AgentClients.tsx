@@ -37,7 +37,7 @@ export function AgentClients() {
   return (
     <>
       {/* Page Header */}
-      <div className="mb-8">
+      <div className="mb-8 mt-15 md:mt-0">
         <h1 className="mb-2 text-[#0D1B2A]">Clients</h1>
         <p className="text-[#4A5568]">Manage your client relationships and track their projects</p>
       </div>

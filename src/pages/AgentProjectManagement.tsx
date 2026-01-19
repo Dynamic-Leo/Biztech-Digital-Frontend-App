@@ -141,7 +141,7 @@ export function AgentProjectManagement() {
   const deliverables = assets.filter((a) => a.type === "Deliverable");
 
   return (
-    <div className="min-h-screen bg-[#F8F9FA]">
+    <div className="min-h-screen bg-[#F8F9FA] ">
       {/* Header */}
       <header className="bg-[#0D1B2A] text-white py-6 px-8 shadow-lg">
         <div className="max-w-7xl mx-auto">

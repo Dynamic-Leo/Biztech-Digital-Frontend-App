@@ -101,16 +101,16 @@ export function MyProfile() {
    
 
       {/* Profile Content */}
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8 ">
         {/* Page Header */}
-        <div className="flex justify-between items-start mb-8">
+        <div className="flex md:flex-row flex-col justify-between items-start mb-8">
           <div>
             <h1 className="mb-2 text-[#0D1B2A]">My Profile</h1>
             <p className="text-[#4A5568]">Manage your account information and preferences</p>
           </div>
           <button
             onClick={() => setIsEditing(!isEditing)}
-            className="flex items-center gap-2 px-6 py-2.5 rounded-lg font-medium transition-all h-[44px] border-2 border-gray-200 text-[#1A202C] hover:border-[#2EC4B6] hover:bg-[#F0FDFA]"
+            className="flex items-center md:mt-0 mt-5 gap-2 px-6 py-2.5 rounded-lg font-medium transition-all h-[44px] border-2 border-gray-200 text-[#1A202C] hover:border-[#2EC4B6] hover:bg-[#F0FDFA]"
           >
             <Edit2 size={18} />
             {isEditing ? 'Cancel Edit' : 'Edit Profile'}
