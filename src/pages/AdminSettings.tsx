@@ -277,7 +277,7 @@ export function AdminSettings() {
       <div className="mt-6 flex justify-end md:justify-start">
         <button
           onClick={handleSave}
-          className="w-full md:w-auto bg-[#2EC4B6] hover:bg-[#26a599] text-white px-8 py-3 rounded-lg transition-all font-medium h-[48px] flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
+          className="w-full md:w-auto bg-[#2EC4B6] hover:cursor-pointer hover:bg-[#26a599] text-white px-8 py-3 rounded-lg transition-all font-medium h-[48px] flex items-center justify-center gap-2 shadow-md hover:shadow-lg"
         >
           <Save size={18} />
           Save Settings

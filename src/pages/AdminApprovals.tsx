@@ -97,13 +97,13 @@ export function AdminApprovals() {
                       <div className="flex gap-2">
                         <button
                           onClick={() => handleStatusChange(user.id, 'Active')}
-                          className="flex items-center gap-1 px-3 py-1.5 bg-[#2ECC71] text-white rounded-lg hover:bg-[#27ae60] transition-all text-sm font-medium"
+                          className="flex items-center gap-1 px-3 py-1.5 bg-[#2ECC71] text-white rounded-lg hover:bg-[#27ae60] transition-all text-sm font-medium hover:cursor-pointer"
                         >
                           <CheckCircle size={16} /> Approve
                         </button>
                         <button
                           onClick={() => handleStatusChange(user.id, 'Rejected')}
-                          className="flex items-center gap-1 px-3 py-1.5 bg-[#E74C3C] text-white rounded-lg hover:bg-[#c0392b] transition-all text-sm font-medium"
+                          className="flex items-center gap-1 px-3 py-1.5 bg-[#E74C3C] text-white rounded-lg hover:bg-[#c0392b] transition-all text-sm font-medium hover:cursor-pointer"
                         >
                           <XCircle size={16} /> Reject
                         </button>
