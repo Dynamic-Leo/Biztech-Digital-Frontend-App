@@ -48,7 +48,7 @@ export function Header({ variant = 'default' }: HeaderProps) {
         <div className="flex justify-between items-center">
           {/* Logo */}
           <div className="flex items-center gap-2 z-10 cursor-pointer" onClick={() => navigate(isAuthenticated ? '/client-dashboard' : '/')}>
-            <img src={logoImage} alt="BizDigital" className="w-auto h-50 hover:cursor-pointer" />
+            <img src={logoImage} alt="BizDigital" className="w-auto h-20 hover:cursor-pointer" />
           </div>
 
           {/* === DESKTOP NAVIGATION === */}
@@ -57,13 +57,13 @@ export function Header({ variant = 'default' }: HeaderProps) {
               <></> 
             ) : (
               <>
-                <button onClick={() => navigate('/client-dashboard')} className={getLinkClass('/client-dashboard')}>
+                <button onClick={() => navigate('/client-dashboard')} className={getLinkClass('/client-dashboard') + ' hover:cursor-pointer'}>
                   Dashboard
                 </button>
-                <button onClick={() => navigate('/my-projects')} className={getLinkClass('/my-projects')}>
+                <button onClick={() => navigate('/my-projects')} className={getLinkClass('/my-projects') + ' hover:cursor-pointer'}>
                   My Projects
                 </button>
-                <button onClick={() => navigate('/my-profile')} className={getLinkClass('/my-profile')}>
+                <button onClick={() => navigate('/my-profile')} className={getLinkClass('/my-profile') + ' hover:cursor-pointer'}>
                   My Profile
                 </button>
               </>

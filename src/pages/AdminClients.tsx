@@ -50,13 +50,13 @@ export function AdminClients() {
 
   return (
     <>
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex md:flex-row flex-col md:justify-between items-start mb-8 mt-15 md:mt-0">
         <div>
           <h1 className="mb-2 text-[#0D1B2A]">Client Management</h1>
           <p className="text-[#4A5568]">Oversee client accounts and activity</p>
         </div>
         
-        <div className="relative">
+        <div className="relative mt-5 md:mt-0">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
           <input 
             type="text" 

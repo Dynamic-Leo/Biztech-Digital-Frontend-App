@@ -223,7 +223,7 @@ export function ClientDashboard() {
                 <h3 className="text-[#0D1B2A]">My Requests</h3>
                 <button
                   onClick={() => navigate("/needs-assessment")}
-                  className="text-[#2EC4B6] hover:text-[#26a599] text-sm font-medium flex items-center gap-1"
+                  className="text-[#2EC4B6] hover:text-[#26a599] text-sm font-medium flex hover:cursor-pointer items-center gap-1"
                 >
                   <Plus size={16} />
                   New Request
@@ -325,7 +325,7 @@ export function ClientDashboard() {
               <div className="space-y-3">
                 <button
                   onClick={() => navigate("/needs-assessment")}
-                  className="w-full text-left px-4 py-3 border-2 border-gray-200 rounded-lg hover:border-[#2EC4B6] hover:bg-[#F0FDFA] transition-all group"
+                  className="w-full text-left px-4 py-3 border-2 border-gray-200 rounded-lg hover:cursor-pointer hover:border-[#2EC4B6] hover:bg-[#F0FDFA] transition-all group"
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-[#2EC4B6]/10 rounded-lg flex items-center justify-center group-hover:bg-[#2EC4B6] transition-colors">
@@ -341,7 +341,7 @@ export function ClientDashboard() {
                 </button>
                 <button
                   onClick={() => navigate("/my-documents")}
-                  className="w-full text-left px-4 py-3 border-2 border-gray-200 rounded-lg hover:border-[#2EC4B6] hover:bg-[#F0FDFA] transition-all group"
+                  className="w-full text-left px-4 py-3 border-2 border-gray-200 rounded-lg hover:cursor-pointer hover:border-[#2EC4B6] hover:bg-[#F0FDFA] transition-all group"
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-[#2EC4B6]/10 rounded-lg flex items-center justify-center group-hover:bg-[#2EC4B6] transition-colors">
@@ -357,7 +357,7 @@ export function ClientDashboard() {
                 </button>
                 <button
                   onClick={() => navigate("/my-profile")}
-                  className="w-full text-left px-4 py-3 border-2 border-gray-200 rounded-lg hover:border-[#2EC4B6] hover:bg-[#F0FDFA] transition-all group"
+                  className="w-full text-left px-4 py-3 border-2 border-gray-200 rounded-lg hover:cursor-pointer hover:border-[#2EC4B6] hover:bg-[#F0FDFA] transition-all group"
                 >
                   <div className="flex items-center gap-3">
                     <div className="w-8 h-8 bg-[#2EC4B6]/10 rounded-lg flex items-center justify-center group-hover:bg-[#2EC4B6] transition-colors">

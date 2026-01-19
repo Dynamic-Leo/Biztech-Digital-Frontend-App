@@ -108,7 +108,7 @@ export function AdminSettings() {
   return (
     <>
       {/* Page Header */}
-      <div className="mb-8">
+      <div className="mb-8 mt-15 md:mt-0">
         <h1 className="mb-2 text-[#0D1B2A]">Platform Settings</h1>
         <p className="text-[#4A5568]">Configure system preferences and view platform health</p>
       </div>
